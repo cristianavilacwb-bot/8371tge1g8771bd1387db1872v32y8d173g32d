@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Eloa Andreatta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            min-height: 100vh;
+            color: #e6e6fa;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Gothic Background */
+        .gothic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background: linear-gradient(135deg, #2d1b69 0%, #11001b 50%, #4b0082 100%);
+        }
+
+        .gothic-element {
+            position: absolute;
+            color: #9370db;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: gothicFloat 8s ease-in-out infinite;
+            text-shadow: 0 0 15px #9370db;
+        }
+
+        @keyframes gothicFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            25% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(-5deg); opacity: 0.8; }
+            75% { transform: translateY(-40px) rotate(3deg); opacity: 0.9; }
+        }
+
+        .gothic-mist {
+            position: absolute;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: mistMove 15s linear infinite;
+        }
+
+        @keyframes mistMove {
+            0% { transform: translateX(-100px) scale(1); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.3; }
+            100% { transform: translateX(100vw) scale(1.5); opacity: 0; }
+        }
+
+        .header {
+            background: rgba(45, 27, 105, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 3px solid #9370db;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 30px rgba(147, 112, 219, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #e6e6fa;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px #9370db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+        }
+
+        .header h1:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 50px #9370db;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #2d1b69, #4b0082);
+            color: #e6e6fa;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+            border: 1px solid #9370db;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(147, 112, 219, 0.5);
+            background: linear-gradient(45deg, #4b0082, #8a2be2);
+            text-shadow: 0 0 10px #9370db;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #9370db, #8a2be2);
+            color: #000;
+            box-shadow: 0 6px 20px rgba(147, 112, 219, 0.6);
+            text-shadow: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .content-area {
+            margin-top: 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .home-content {
+            display: block;
+        }
+
+        .iframe-content {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 200px);
+            background: rgba(45, 27, 105, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(147, 112, 219, 0.4);
+            border: 2px solid #9370db;
+        }
+
+        .iframe-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #11001b;
+        }
+
+        .personalized-welcome {
+            background: rgba(45, 27, 105, 0.95);
+            backdrop-filter: blur(15px);
+            border: 3px solid #9370db;
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 0 50px rgba(147, 112, 219, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personalized-welcome::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9370db, transparent);
+            animation: gothicScan 4s linear infinite;
+        }
+
+        @keyframes gothicScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .agent-avatar {
+            font-size: 8rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: gothicPulse 4s ease-in-out infinite;
+            text-shadow: 0 0 40px #9370db;
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #e6e6fa;
+            text-shadow: 0 0 40px #9370db;
+            font-family: 'Georgia', serif;
+            letter-spacing: 3px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.8rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: #dda0dd;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .datetime-display {
+            background: rgba(17, 0, 27, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #9370db;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(147, 112, 219, 0.3);
+        }
+
+        .time-display, .date-display {
+            text-align: center;
+        }
+
+        .time-value, .date-value {
+            font-size: 3.5rem;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #e6e6fa;
+            text-shadow: 0 0 25px #9370db;
+        }
+
+        .time-label, .date-label {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #dda0dd;
+            font-family: 'Georgia', serif;
+        }
+
+        .gothic-quotes {
+            background: rgba(45, 27, 105, 0.8);
+            border: 2px solid #9370db;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .gothic-quotes h3 {
+            color: #e6e6fa;
+            text-shadow: 0 0 20px #9370db;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .quote-text {
+            color: #dda0dd;
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            color: #9370db;
+            font-size: 1rem;
+            opacity: 0.8;
+            font-family: 'Georgia', serif;
+        }
+
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #e6e6fa;
+            font-size: 1.2rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(147, 112, 219, 0.3);
+            border-top: 4px solid #9370db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gothicPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 200px;
+                text-align: center;
+            }
+
+            .iframe-content {
+                height: calc(100vh - 250px);
+            }
+
+            .datetime-display {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .time-value, .date-value {
+                font-size: 2.5rem;
+            }
+
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+
+            .agent-avatar {
+                font-size: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gothic Background -->
+    <div id="gothicBackground" class="gothic-background"></div>
+
+    <div class="header">
+        <h1>ELOA ANDREATTA</h1>
+        <nav class="tabs">
+            <div class="tab active" onclick="showContent('home')">🏠 INÍCIO</div>
+            <div class="tab" onclick="showContent('messages')">💬 MENSAGENS</div>
+            <div class="tab" onclick="showContent('report')">📋 RELATÓRIO DIÁRIO</div>
+            <div class="tab" onclick="showContent('os')">🎫 TABELA OS</div>
+            <div class="tab" onclick="showContent('vlans')">🌐 SITES/VLANS</div>
+            <div class="tab" onclick="showContent('routers')">🔧 ROTEADORES</div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="content-area">
+            <!-- Conteúdo da página inicial -->
+            <div id="home" class="home-content">
+                <div class="personalized-welcome">
+                    <div class="agent-avatar"></div>
+                    <h1 class="welcome-title">BEM-VINDA, ELOA!</h1>
+                    <p class="welcome-subtitle">Agente de Suporte Técnico</p>
+                    
+                    <div class="datetime-display">
+                        <div class="time-display">
+                            <div id="currentTime" class="time-value">00:00:00</div>
+                            <div class="time-label">Hora das Sombras</div>
+                        </div>
+                        <div class="date-display">
+                            <div id="currentDate" class="date-value">00/00/0000</div>
+                            <div class="date-label">Data Eterna</div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <!-- Área para carregar iframes -->
+            <div id="messages" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    INVOCANDO MENSAGENS...
+                </div>
+            </div>
+            
+            <div id="report" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    CONSULTANDO PERGAMINHOS...
+                </div>
+            </div>
+            
+            <div id="os" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    DESVENDANDO OS MISTÉRIOS...
+                </div>
+            </div>
+            
+            <div id="vlans" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    MAPEANDO DIMENSÕES...
+                </div>
+            </div>
+            
+            <div id="routers" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    CONECTANDO PORTAIS...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URLs das páginas (mantidas originais)
+        const pageUrls = {
+            messages: 'MSPeloa.html',
+            report: 'relatorio_diario.html',
+            os: 'tabelaOs.html',
+            vlans: 'sitesU.html',
+            routers: 'roteadores.html'
+        };
+
+        // Frases góticas
+        const gothicQuotes = [
+            "A escuridão não é a ausência de luz, mas a presença de mistério.",
+            "Nas sombras encontramos nossa verdadeira essência.",
+            "A beleza está nos detalhes sombrios da existência.",
+            "Entre o crepúsculo e a aurora, habita a magia.",
+            "O silêncio da noite sussurra os mais profundos segredos."
+        ];
+
+        // Sistema de navegação por abas
+        function showContent(contentId) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.home-content, .iframe-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            event.target.classList.add('active');
+
+            if (contentId === 'home') {
+                document.getElementById('home').style.display = 'block';
+            } else {
+                const iframeContainer = document.getElementById(contentId);
+                iframeContainer.style.display = 'block';
+                
+                let iframe = iframeContainer.querySelector('iframe');
+                if (!iframe) {
+                    const loadingIndicator = iframeContainer.querySelector('.loading-indicator');
+                    loadingIndicator.style.display = 'block';
+                    
+                    iframe = document.createElement('iframe');
+                    iframe.src = pageUrls[contentId];
+                    iframe.style.opacity = '0';
+                    iframe.style.transition = 'opacity 0.5s ease';
+                    
+                    iframe.onload = function() {
+                        loadingIndicator.style.display = 'none';
+                        iframe.style.opacity = '1';
+                    };
+                    
+                    iframe.onerror = function() {
+                        loadingIndicator.innerHTML = '<div style="color: #ff4444;">⚠ ERRO NAS TREVAS</div>';
+                    };
+                    
+                    iframeContainer.appendChild(iframe);
+                }
+            }
+        }
+
+        // Função para atualizar data e hora
+        function updateDateTime() {
+            const now = new Date();
+            
+            const timeString = now.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const dateString = now.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            document.getElementById('currentTime').textContent = timeString;
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        // Efeito gótico de fundo
+        function createGothicEffect() {
+            const gothicBg = document.getElementById('gothicBackground');
+            const elements = ['🦇', '🌙', '⭐', '🕯', '🗝', '⚰', '🔮', '🕷'];
+            
+            function createGothicElement() {
+                const element = document.createElement('div');
+                element.className = 'gothic-element';
+                element.textContent = elements[Math.floor(Math.random() * elements.length)];
+                element.style.left = Math.random() * 95 + '%';
+                element.style.top = Math.random() * 95 + '%';
+                element.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                element.style.animationDelay = Math.random() * 8 + 's';
+                element.style.animationDuration = (Math.random() * 4 + 8) + 's';
+                
+                gothicBg.appendChild(element);
+                
+                setTimeout(() => {
+                    if (element.parentNode) {
+                        element.parentNode.removeChild(element);
+                    }
+                }, 12000);
+            }
+
+            function createMist() {
+                const mist = document.createElement('div');
+                mist.className = 'gothic-mist';
+                mist.style.width = (Math.random() * 200 + 100) + 'px';
+                mist.style.height = (Math.random() * 200 + 100) + 'px';
+                mist.style.top = Math.random() * 80 + '%';
+                mist.style.left = '-100px';
+                mist.style.animationDelay = Math.random() * 15 + 's';
+                
+                gothicBg.appendChild(mist);
+                
+                setTimeout(() => {
+                    if (mist.parentNode) {
+                        mist.parentNode.removeChild(mist);
+                    }
+                }, 15000);
+            }
+            
+            // Criar elementos iniciais
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createGothicElement(), i * 500);
+            }
+
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => createMist(), i * 3000);
+            }
+            
+            // Continuar criando elementos
+            setInterval(createGothicElement, 2000);
+            setInterval(createMist, 8000);
+        }
+
+        // Mudar frase gótica
+        function changeGothicQuote() {
+            const quoteElement = document.getElementById('gothicQuote');
+            const randomQuote = gothicQuotes[Math.floor(Math.random() * gothicQuotes.length)];
+            quoteElement.textContent = "${randomQuote}";
+        }
+
+        // Inicialização
+        window.addEventListener('load', () => {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            createGothicEffect();
+            setInterval(changeGothicQuote, 30000); // Muda frase a cada 30 segundos
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Suporte Técnico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e6ed;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #00d4ff;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header h1:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8));
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            color: #e0e6ed;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .content-area {
+            margin-top: 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .home-content {
+            display: block;
+        }
+
+        .iframe-content {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 200px);
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .iframe-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #1a1a2e;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .agent-card {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88, #ff0080);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .agent-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Card do Cristian - mantido original */
+        .agent-card.cristian {
+            background: rgba(0, 20, 0, 0.9);
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .agent-card.cristian::before {
+            background: linear-gradient(90deg, #00ff00, #00ff88, #00ff00);
+            opacity: 1;
+        }
+
+        /* Card da Eloa - Tema Gótico/Vampiro */
+        .agent-card.eloa {
+            background: linear-gradient(135deg, rgba(75, 0, 130, 0.9) 0%, rgba(25, 25, 112, 0.9) 100%);
+            color: #e6e6fa;
+            border: 2px solid #9370db;
+            box-shadow: 0 0 30px rgba(147, 112, 219, 0.3);
+            position: relative;
+        }
+
+        .agent-card.eloa::before {
+            background: linear-gradient(90deg, #9370db, #8a2be2, #4b0082);
+            opacity: 1;
+        }
+
+        .agent-card.eloa::after {
+            content: '🦇';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Card da Luceni - Tema Estrela/Brilhante */
+        .agent-card.luceni {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 140, 0, 0.3) 100%);
+            color: #fff8dc;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            position: relative;
+        }
+
+        .agent-card.luceni::before {
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffa500);
+            opacity: 1;
+        }
+
+        .agent-card.luceni::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        /* Card da Jessica - Tema Borboleta/Natureza */
+        .agent-card.jessica {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(221, 160, 221, 0.3) 100%);
+            color: #f8f8ff;
+            border: 2px solid #ff69b4;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            position: relative;
+        }
+
+        .agent-card.jessica::before {
+            background: linear-gradient(90deg, #ff69b4, #ffc0cb, #da70d6);
+            opacity: 1;
+        }
+
+        .agent-card.jessica::after {
+            content: '🦋';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            animation: flutter 4s ease-in-out infinite;
+        }
+
+        /* Card da Franciele - Tema Flor/Primavera */
+        .agent-card.franciele {
+            background: linear-gradient(135deg, rgba(60, 179, 113, 0.3) 0%, rgba(32, 178, 170, 0.3) 100%);
+            color: #f0fff0;
+            border: 2px solid #20b2aa;
+            box-shadow: 0 0 30px rgba(32, 178, 170, 0.3);
+            position: relative;
+        }
+
+        .agent-card.franciele::before {
+            background: linear-gradient(90deg, #20b2aa, #48d1cc, #00ced1);
+            opacity: 1;
+        }
+
+        .agent-card.franciele::after {
+            content: '🌸';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            animation: bloom 3s ease-in-out infinite;
+        }
+
+        /* Card da Tamara - mantido original */
+        .agent-card.supervisor {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.8) 0%, rgba(160, 82, 45, 0.8) 100%);
+            color: #ffd700;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .agent-card.supervisor::before {
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            opacity: 1;
+        }
+
+        .agent-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .agent-role {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-style: italic;
+            opacity: 0.9;
+            color: #a0a9ba;
+        }
+
+        .agent-card.cristian .agent-role {
+            color: #90ee90;
+        }
+
+        .agent-card.eloa .agent-role {
+            color: #dda0dd;
+        }
+
+        .agent-card.luceni .agent-role {
+            color: #fffacd;
+        }
+
+        .agent-card.jessica .agent-role {
+            color: #ffb6c1;
+        }
+
+        .agent-card.franciele .agent-role {
+            color: #e0ffff;
+        }
+
+        .agent-card.supervisor .agent-role {
+            color: #ffe135;
+        }
+
+        .agent-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .agent-card.cristian .agent-info {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+        }
+
+        .agent-card.eloa .agent-info {
+            background: rgba(147, 112, 219, 0.1);
+            border: 1px solid #9370db;
+        }
+
+        .agent-card.luceni .agent-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+        }
+
+        .agent-card.jessica .agent-info {
+            background: rgba(255, 105, 180, 0.1);
+            border: 1px solid #ff69b4;
+        }
+
+        .agent-card.franciele .agent-info {
+            background: rgba(32, 178, 170, 0.1);
+            border: 1px solid #20b2aa;
+        }
+
+        .agent-card.supervisor .agent-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+        }
+
+        .admission-date {
+            font-weight: 600;
+            color: #e0e6ed;
+        }
+
+        .agent-card.cristian .admission-date {
+            color: #00ff00;
+        }
+
+        .agent-card.eloa .admission-date {
+            color: #e6e6fa;
+        }
+
+        .agent-card.luceni .admission-date {
+            color: #ffd700;
+        }
+
+        .agent-card.jessica .admission-date {
+            color: #ffb6c1;
+        }
+
+        .agent-card.franciele .admission-date {
+            color: #20b2aa;
+        }
+
+        .agent-card.supervisor .admission-date {
+            color: #ffd700;
+        }
+
+        /* Animações personalizadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+        }
+
+        @keyframes flutter {
+            0%, 100% { transform: translateX(0px) rotate(0deg); }
+            25% { transform: translateX(5px) rotate(10deg); }
+            75% { transform: translateX(-5px) rotate(-10deg); }
+        }
+
+        @keyframes bloom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Efeito Matrix aprimorado */
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            animation: fall linear infinite;
+            opacity: 0.8;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(400px);
+                opacity: 0;
+            }
+        }
+
+        .welcome-section {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .welcome-section h2 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .welcome-section p {
+            color: #a0a9ba;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #00d4ff;
+            font-size: 1.2rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 212, 255, 0.3);
+            border-top: 4px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Easter Egg - Minigame */
+        .easter-egg {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s infinite;
+            z-index: 50;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .easter-egg:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .easter-egg::before {
+            content: '🎮';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .minigame-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .minigame-container {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid #00d4ff;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .minigame-title {
+            color: #00d4ff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 2rem 0;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .game-tile {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #2a2a40, #3a3a60);
+            border: 2px solid #00d4ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        .game-tile:hover {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            transform: scale(1.1);
+        }
+
+        .game-tile.matched {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            border-color: #00ff88;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            color: #a0a9ba;
+            font-size: 1.1rem;
+        }
+
+        .close-game {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .close-game:hover {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
+        /* Efeitos de partículas no fundo */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 200px;
+                text-align: center;
+            }
+            
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .iframe-content {
+                height: calc(100vh - 250px);
+            }
+
+            .game-board {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .game-tile {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects" id="backgroundEffects"></div>
+
+    <!-- Easter Egg -->
+    <div class="easter-egg" onclick="openMinigame()"></div>
+
+    <!-- Minigame Overlay -->
+    <div class="minigame-overlay" id="minigameOverlay">
+        <div class="minigame-container">
+            <h2 class="minigame-title">🎮 Jogo da Memória Tech</h2>
+            <div class="game-info">
+                <span>Movimentos: <span id="moves">0</span></span>
+                <span>Tempo: <span id="timer">00:00</span></span>
+            </div>
+            <div class="game-board" id="gameBoard"></div>
+            <button class="close-game" onclick="closeMinigame()">Fechar Jogo</button>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>🛠 Dashboard - Suporte Técnico</h1>
+        <nav class="tabs">
+            <div class="tab active" onclick="showContent('home')">🏠 Início</div>
+            <div class="tab" onclick="showContent('messages')">💬 Mensagens</div>
+            <div class="tab" onclick="showContent('report')">📋 Relatório Diário</div>
+            <div class="tab" onclick="showContent('os')">🎫 Tabela OS</div>
+            <div class="tab" onclick="showContent('vlans')">🌐 Sites/VLANs</div>
+            <div class="tab" onclick="showContent('routers')">🔧 Roteadores</div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="content-area">
+            <!-- Conteúdo da página inicial -->
+            <div id="home" class="home-content">
+                <div class="welcome-section">
+                    <h2>Bem-vindo ao Sistema de Suporte</h2>
+                    <p>Gerencie suas atividades diárias, acompanhe relatórios e mantenha-se organizado com nossa plataforma integrada de suporte técnico no modo escuro.</p>
+                </div>
+
+                <h2 class="section-title">👥 Equipe de Suporte</h2>
+
+                <div class="agents-grid">
+                    <!-- Card do Cristian com efeito Matrix -->
+                    <div class="agent-card cristian">
+                        <div class="matrix-bg" id="matrixBg"></div>
+                        <div class="agent-name">💻 Cristian Avila</div>
+                        <div class="agent-role">Agente de Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: 14/07/2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Card da Eloa - Tema Gótico -->
+                    <div class="agent-card eloa">
+                        <div class="agent-name">🦇 Eloa Andreatta</div>
+                        <div class="agent-role">Agente de Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: 07/05/2025</div>
+                        </div>
+                    </div>
+					
+                    <!-- Card da Luceni - Tema Estrela -->
+                    <div class="agent-card luceni">
+                        <div class="agent-name">⭐ Luceni Lemos</div>
+                        <div class="agent-role">Agente de Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: 13/06/2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Card da Jessica - Tema Borboleta -->
+                    <div class="agent-card jessica">
+                        <div class="agent-name">🦋 Jessica Alves</div>
+                        <div class="agent-role">Agente de Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: 14/08/2025</div>
+                        </div>
+                    </div>
+
+                    <!-- Card da Tamara (Supervisora) -->
+                    <div class="agent-card supervisor">
+                        <div class="agent-name">👑 Tamara Choma</div>
+                        <div class="agent-role">Supervisora do Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: Há mais de 4 anos</div>
+                        </div>
+                    </div>
+
+                    <!-- Card da Franciele - Tema Flor -->
+                    <div class="agent-card franciele">
+                        <div class="agent-name">🌸 Franciele Lima</div>
+                        <div class="agent-role">Agente de Suporte Técnico</div>
+                        <div class="agent-info">
+                            <div class="admission-date">📅 Adesão: 00/00/0000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área para carregar iframes -->
+            <div id="messages" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Carregando Mensagens...
+                </div>
+            </div>
+            
+            <div id="report" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Carregando Relatório Diário...
+                </div>
+            </div>
+            
+            <div id="os" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Carregando Tabela OS...
+                </div>
+            </div>
+            
+            <div id="vlans" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Carregando Sites/VLANs...
+                </div>
+            </div>
+            
+            <div id="routers" class="iframe-content">
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    Carregando Roteadores...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URLs das páginas
+        const pageUrls = {
+            messages: 'MSPcristian.html',
+            report: 'relatorio_diario.html',
+            os: 'tabelaOs.html',
+            vlans: 'Vlans.html',
+            routers: 'roteadores.html'
+        };
+
+        // Variáveis do minigame
+        let gameStarted = false;
+        let moves = 0;
+        let timer = 0;
+        let timerInterval;
+        let firstCard = null;
+        let secondCard = null;
+        let matchedPairs = 0;
+
+        // Sistema de navegação por abas
+        function showContent(contentId) {
+            // Remove active class de todas as abas
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Esconde todo o conteúdo
+            document.querySelectorAll('.home-content, .iframe-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Ativa a aba clicada
+            event.target.classList.add('active');
+
+            if (contentId === 'home') {
+                // Mostra o conteúdo da página inicial
+                document.getElementById('home').style.display = 'block';
+            } else {
+                // Mostra o container do iframe
+                const iframeContainer = document.getElementById(contentId);
+                iframeContainer.style.display = 'block';
+                
+                // Verifica se o iframe já existe
+                let iframe = iframeContainer.querySelector('iframe');
+                if (!iframe) {
+                    // Mostra indicador de carregamento
+                    const loadingIndicator = iframeContainer.querySelector('.loading-indicator');
+                    loadingIndicator.style.display = 'block';
+                    
+                    // Cria e configura o iframe
+                    iframe = document.createElement('iframe');
+                    iframe.src = pageUrls[contentId];
+                    iframe.style.opacity = '0';
+                    iframe.style.transition = 'opacity 0.5s ease';
+                    
+                    iframe.onload = function() {
+                        loadingIndicator.style.display = 'none';
+                        iframe.style.opacity = '1';
+                    };
+                    
+                    iframe.onerror = function() {
+                        loadingIndicator.innerHTML = '<div style="color: #ff4444;">❌ Erro ao carregar a página</div>';
+                    };
+                    
+                    iframeContainer.appendChild(iframe);
+                }
+            }
+        }
+
+        // Efeito Matrix aprimorado para o card do Cristian
+        function createMatrixEffect() {
+            const matrixBg = document.getElementById('matrixBg');
+            if (!matrixBg) return;
+            
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            function createChar() {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                char.style.fontSize = (Math.random() * 12 + 8) + 'px';
+                char.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                matrixBg.appendChild(char);
+                
+                setTimeout(() => {
+                    if (char.parentNode) {
+                        char.parentNode.removeChild(char);
+                    }
+                }, 6000);
+            }
+            
+            // Criar caracteres iniciais
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createChar, i * 200);
+            }
+            
+            // Continuar criando caracteres
+            setInterval(createChar, 150);
+        }
+
+        // Criar efeitos de partículas no fundo
+        function createBackgroundParticles() {
+            const bg = document.getElementById('backgroundEffects');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                bg.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 8000);
+            }
+            
+            // Criar partículas iniciais
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createParticle, i * 300);
+            }
+            
+            // Continuar criando partículas
+            setInterval(createParticle, 1000);
+        }
+
+        // Funções do Minigame
+        function openMinigame() {
+            document.getElementById('minigameOverlay').style.display = 'flex';
+            initGame();
+        }
+
+        function closeMinigame() {
+            document.getElementById('minigameOverlay').style.display = 'none';
+            resetGame();
+        }
+
+        function initGame() {
+            const gameBoard = document.getElementById('gameBoard');
+            const symbols = ['💻', '🔧', '🌐', '📱', '⚙️', '🖥️', '📊', '🔒'];
+            const cards = [...symbols, ...symbols];
+            
+            // Embaralhar cartas
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+
+            gameBoard.innerHTML = '';
+            cards.forEach((symbol, index) => {
+                const tile = document.createElement('div');
+                tile.className = 'game-tile';
+                tile.dataset.symbol = symbol;
+                tile.dataset.index = index;
+                tile.innerHTML = '❓';
+                tile.onclick = () => flipCard(tile);
+                gameBoard.appendChild(tile);
+            });
+
+            resetGame();
+            startTimer();
+        }
+
+        function flipCard(tile) {
+            if (tile.classList.contains('matched') || tile === firstCard) return;
+            
+            tile.innerHTML = tile.dataset.symbol;
+            
+            if (!firstCard) {
+                firstCard = tile;
+            } else if (!secondCard) {
+                secondCard = tile;
+                moves++;
+                document.getElementById('moves').textContent = moves;
+                
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+                firstCard.classList.add('matched');
+                secondCard.classList.add('matched');
+                matchedPairs++;
+                
+                if (matchedPairs === 8) {
+                    clearInterval(timerInterval);
+                    setTimeout(() => {
+                        alert(`🎉 Parabéns! Você ganhou em ${moves} movimentos e ${document.getElementById('timer').textContent}!`);
+                    }, 500);
+                }
+            } else {
+                firstCard.innerHTML = '❓';
+                secondCard.innerHTML = '❓';
+            }
+            
+            firstCard = null;
+            secondCard = null;
+        }
+
+        function startTimer() {
+            timer = 0;
+            timerInterval = setInterval(() => {
+                timer++;
+                const minutes = Math.floor(timer / 60).toString().padStart(2, '0');
+                const seconds = (timer % 60).toString().padStart(2, '0');
+                document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function resetGame() {
+            clearInterval(timerInterval);
+            moves = 0;
+            timer = 0;
+            matchedPairs = 0;
+            firstCard = null;
+            secondCard = null;
+            document.getElementById('moves').textContent = '0';
+            document.getElementById('timer').textContent = '00:00';
+        }
+
+        // Inicialização
+        window.addEventListener('load', () => {
+            createMatrixEffect();
+            createBackgroundParticles();
+            
+            // Animação de entrada dos cards
+            const cards = document.querySelectorAll('.agent-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(50px) scale(0.9)';
+                    card.style.transition = 'all 0.8s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0) scale(1)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+
+        // Adicionar efeito de digitação ao título
+        window.addEventListener('load', () => {
+            const title = document.querySelector('.header h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeEffect = setInterval(() => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeEffect);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

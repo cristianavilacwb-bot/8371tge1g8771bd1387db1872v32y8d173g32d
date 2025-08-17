@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referência para Abertura de OS - VIP Fiber</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2d388a, #4a4b8c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2d388a;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a4b8c;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .priority-high { background-color: #ffebee; border-left: 5px solid #f44336; }
+        .priority-medium { background-color: #fff8e1; border-left: 5px solid #ffc107; }
+        .priority-low { background-color: #e8f5e9; border-left: 5px solid #4caf50; }
+        .priority-info { background-color: #e3f2fd; border-left: 5px solid #2196f3; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-header {
+            background: #2d388a;
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-header i {
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .os-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.2s ease;
+        }
+        
+        .os-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .os-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #1a2a6c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .os-details {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .os-defect, .os-type {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .os-defect {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .os-type {
+            background-color: #2d388a;
+            color: white;
+        }
+        
+        .priority-label {
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .high-priority { background-color: #f44336; color: white; }
+        .medium-priority { background-color: #ffc107; color: #333; }
+        .low-priority { background-color: #4caf50; color: white; }
+        
+        .info-card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .info-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-left: 25px;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .step:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2d388a;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .last-update {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .os-details {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tools"></i> Referência para Abertura de OS</h1>
+            <p class="subtitle">Padrões para criação de Ordens de Serviço na VIP Fiber</p>
+            <div class="agent-info">
+                <i class="fas fa-user"></i> Agente: Jessica alvez
+            </div>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-triangle"></i> Prioridade Alta
+                </div>
+                <div class="card-content">
+                    <div class="os-item priority-high">
+                        <div class="os-title">
+                            <i class="fas fa-lightbulb"></i> Luz vermelha - LOS
+                            <span class="priority-label high-priority">Alta Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Alta Prioridade</div>
+                            <div class="os-type">Tipo: Off-line/proridade alta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-exclamation-circle"></i> Prioridade Média
+                </div>
+                <div class="card-content">
+                    <div class="os-item priority-medium">
+                        <div class="os-title">
+                            <i class="fas fa-wifi"></i> Troca de roteador
+                            <span class="priority-label medium-priority">Média Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Prioridade Média</div>
+                            <div class="os-type">Tipo: Troca de roteador/prioridade media</div>
+                        </div>
+                    </div>
+                    
+                    <div class="os-item priority-medium">
+                        <div class="os-title">
+                            <i class="fas fa-tachometer-alt"></i> Teste de velocidade
+                            <span class="priority-label medium-priority">Média Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Defeito: Prioridade Média</div>
+                            <div class="os-type">Tipo: Teste de velocidade/prioridade</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-check-circle"></i> Prioridade Baixa
+                </div>
+                <div class="card-content">
+                    <div class="os-item priority-low">
+                        <div class="os-title">
+                            <i class="fas fa-key"></i> Troca de senha
+                            <span class="priority-label low-priority">Baixa Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Defeito: Prioridade Baixa</div>
+                            <div class="os-type">Tipo: Troca do modem de local</div>
+                        </div>
+                    </div>
+                    
+                    <div class="os-item priority-low">
+                        <div class="os-title">
+                            <i class="fas fa-ethernet"></i> Cabo de rede
+                            <span class="priority-label low-priority">Baixa Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Defeito: Prioridade Baixa</div>
+                            <div class="os-type">Tipo: Outros/Cabo de rede</div>
+                        </div>
+                    </div>
+                    
+                    <div class="os-item priority-low">
+                        <div class="os-title">
+                            <i class="fas fa-plus-circle"></i> Ponto adicional
+                            <span class="priority-label low-priority">Baixa Prioridade</span>
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Defeito:Prioridade Baixa</div>
+                            <div class="os-type">Tipo: Outros/Ponto adicional</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> Outros Casos
+                </div>
+                <div class="card-content">
+                    <div class="os-item">
+                        <div class="os-title">
+                            <i class="fas fa-ban"></i> Cancelamento
+                        </div>
+                        <div class="os-details">
+                            <div class="os-defect">Defeito: Solicitação de cancelamento</div>
+                            <div class="os-type">Tipo: Outros/Cancelamento</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-exclamation-circle"></i> Informativo Importante
+            </div>
+            <div class="card-content">
+                <div class="info-card priority-info">
+                    <div class="info-title">
+                        <i class="fas fa-lock"></i> Fechamento de OS Agendada ou Não Agendada
+                    </div>
+                    <p style="margin-bottom: 15px;">Para fechar uma OS que foi agendada ou não agendada corretamente:</p>
+                    <div class="steps">
+                        <div class="step">Altere o defeito para "0.S invalida"</div>
+                        <div class="step">Após alterar o defeito, feche a OS utilizando o ícone de cadeado</div>
+                        <div class="step">Certifique-se de registrar o motivo do fechamento no sistema</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Referência para padronização de abertura de Ordens de Serviço</p>
+            <div class="last-update">
+                <i class="fas fa-sync-alt"></i> Última atualização: 14 de agosto de 2025
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

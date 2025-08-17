@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links de Suporte - jessica alvez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2d388a, #4a4b8c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2d388a;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .agent-info {
+            background: #e6f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #1a2a6c;
+            border-left: 5px solid #2d388a;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-header {
+            background: #2d388a;
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-header i {
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .link-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .link-item:last-child {
+            border-bottom: none;
+        }
+        
+        .link-icon {
+            background: #e6f7ff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d388a;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .link-text {
+            flex-grow: 1;
+        }
+        
+        .link-text a {
+            color: #1a2a6c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: block;
+            word-break: break-word;
+        }
+        
+        .link-text a:hover {
+            color: #4a4b8c;
+            text-decoration: underline;
+        }
+        
+        .link-description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .last-update {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Links para Suporte Técnico</h1>
+            <p>Todos os sistemas e ferramentas essenciais em um só lugar</p>
+            <div class="agent-info">
+                <i class="fas fa-user"></i> Agente: Jessica alvez
+            </div>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-comments"></i> Sistemas de Chat
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="https://vipfiber.sz.chat/user/agent" target="_blank">SZ CHAT</a>
+                            <div class="link-description">Plataforma de atendimento via chat</div>
+                        </div>
+                    </div>
+                    
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="https://srv6.chatmix.com.br/app/atendimento" target="_blank">Chatmix</a>
+                            <div class="link-description">Sistema de atendimento ao cliente</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-network-wired"></i> MKSolution
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="http://187.62.83.3/mk/" target="_blank">MKSolution (IP)</a>
+                            <div class="link-description">Acesso via endereço IP</div>
+                        </div>
+                    </div>
+                    
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="https://mk.vipfibertelecom.com.br/mk/login/?sys=MK0" target="_blank">MKSolution (Domínio)</a>
+                            <div class="link-description">Acesso via nome de domínio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-broadcast-tower"></i> Gerenciamento OLT
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="https://vipfibertelecom.smartolt.com/" target="_blank">SmartOLT</a>
+                            <div class="link-description">Gerenciamento de OLTs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-map-marked-alt"></i> Sistemas de CTO
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="indisponivel por questões de segurança" target="_blank">Checagem de CTO</a>
+                            <div class="link-description">indisponivel por questões de segurança</div>
+                        </div>
+                    </div>
+                    
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="indisponivel por questões de segurança" target="_blank">Mapa de CTOs</a>
+                            <div class="link-description">indisponivel por questões de segurança</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-code"></i> Desenvolvimento
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fab fa-laravel"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="indisponivel por questões de segurança" target="_blank">Laravel</a>
+                            <div class="link-description">indisponivel por questões de segurança</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-excel"></i> Planilhas de Controle
+                </div>
+                <div class="card-content">
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="indisponivel por questões de segurança" target="_blank">Controle de Pós Atendimento</a>
+                            <div class="link-description">indisponivel por questões de segurança</div>
+                        </div>
+                    </div>
+                    
+                    <div class="link-item">
+                        <div class="link-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="link-text">
+                            <a href="" target="_blank">Controle de Upgrades</a>
+                            <div class="link-description">indisponivel por questões de segurança</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Página criada para facilitar o acesso aos sistemas de suporte técnico</p>
+            <div class="last-update">
+                <i class="fas fa-sync-alt"></i> Última atualização: 14 de agosto de 2025
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
