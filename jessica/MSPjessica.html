@@ -3,468 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens de Suporte - Jessica</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Mensagens de Suporte - </title>
     <style>
-        /* (O CSS permanece exatamente igual) */
-        :root {
-            --primary: #3498db;
-            --primary-dark: #2980b9;
-            --secondary: #2ecc71;
-            --background: #f5f5f5;
-            --surface: #ffffff;
-            --on-background: #333333;
-            --on-surface: #555555;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --error: #e74c3c;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            max-width: 1400px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 25px;
-            background-color: var(--background);
-            color: var(--on-background);
-            min-height: 100vh;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 35px;
             padding: 20px;
-            position: relative;
+            background-color: #f5f5f5;
+            color: #333;
         }
-
         h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            position: relative;
-            display: inline-block;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
         }
-
-        h1::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3498db;
         }
-
-        .subtitle {
-            color: var(--on-surface);
-            font-size: 1.1rem;
-            margin-top: 10px;
+        .message-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .controls-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 30px 0;
-            gap: 20px;
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-
+        .message:hover {
+            background-color: #e8f4fc;
+        }
+        .divider {
+            height: 2px;
+            background-color: #3498db;
+            margin: 15px 0;
+            opacity: 0.3;
+        }
+        .copied-notice {
+            display: none;
+            color: #27ae60;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .category {
+            margin-top: 40px;
+        }
         .search-container {
-            position: relative;
-            flex: 1;
-            max-width: 600px;
+            margin-bottom: 20px;
         }
-
         #searchInput {
             width: 100%;
-            padding: 14px 20px;
-            padding-left: 50px;
-            border-radius: 50px;
-            border: 2px solid #ddd;
-            background: white;
-            color: var(--on-background);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
             font-size: 16px;
-            transition: var(--transition);
-            box-shadow: var(--card-shadow);
-        }
-
-        #searchInput:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
-        }
-
-        .search-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        .filter-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .filter-button {
-            padding: 12px 20px;
-            background: var(--surface);
-            border: 2px solid #ddd;
-            border-radius: 50px;
-            color: var(--on-surface);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            box-shadow: var(--card-shadow);
-        }
-
-        .filter-button:hover, .filter-button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 25px;
-        }
-
-        .category {
-            background: var(--surface);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            border: 1px solid #e0e0e0;
-            height: fit-content;
-            max-height: 550px;
-            overflow-y: auto;
-        }
-
-        .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .category-header {
-            background: linear-gradient(90deg, #e8f4fc 0%, #d1e9ff 100%);
-            padding: 16px 22px;
-            border-bottom: 1px solid #e0e0e0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 2;
-        }
-
-        .category-header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 8px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-        }
-
-        h2 {
-            color: var(--primary);
-            font-size: 1.3rem;
-            padding-left: 15px;
-            position: relative;
-            text-transform: capitalize;
-        }
-
-        .counter {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            font-size: 0.85rem;
-            padding: 3px 10px;
-            border-radius: 20px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .message-container {
-            padding: 18px;
-        }
-
-        .message {
-            padding: 16px;
-            margin-bottom: 16px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            position: relative;
-            cursor: pointer;
-            transition: var(--transition);
-            border-left: 4px solid var(--primary);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .message:hover {
-            background: #e8f4fc;
-            transform: translateX(3px);
-        }
-
-        .copied-notice {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--success);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 10;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #ddd, transparent);
-            margin: 16px 0;
-        }
-
-        .copy-icon {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: var(--primary);
-            opacity: 0.6;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .message:hover .copy-icon {
-            opacity: 1;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 25px;
-            color: var(--on-surface);
-            font-size: 0.9rem;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        /* Barra de rolagem personalizada */
-        .category::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .category::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .category::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        .category::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Melhorias para mensagens longas */
-        .message {
-            white-space: pre-line;
-            line-height: 1.5;
-        }
-
-        /* Responsividade */
-        @media (max-width: 1200px) {
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .controls-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .filter-container {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            body {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        /* Adicionar feedback visual ao copiar */
-        .message.copied {
-            background: #e1f7e3;
-            border-left-color: var(--success);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1><i class="fas fa-comments"></i> Mensagens de Suporte</h1>
-        <p class="subtitle">Jessica - Atendimento VIP Fiber</p>
-    </header>
+    <h1>M p S jessica </h1>
     
-    <div class="controls-container">
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
-        </div>
-        
-        <div class="filter-container">
-            <button class="filter-button active" data-filter="all">Todas</button>
-            <button class="filter-button" data-filter="common">Mais Usadas</button>
-            <button class="filter-button" data-filter="recent">Recentes</button>
-        </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
     </div>
     
-    <div class="categories-grid">
-        <!-- Conteúdo das categorias (mantido igual) -->
-        <div class="category" data-category="initial">
-            <div class="category-header">
-                <h2>Atendimento Inicial <span class="counter">3</span></h2>
-            </div>
-            <div class="message-container">
-                <div class="message" onclick="copyToClipboard(this)">
-                    Olá, um excelente dia para você! Tudo bem? 
+    <div class="category">
+        <h2>Atendimento Inicial</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+              Olá, um excelente dia para você! Tudo bem? 
 
-Me chamo Jessica, do setor suporte da VipFiber, e estou aqui para garantir que você tenha a melhor experiência com o nosso atendimento. Como posso te ajudar hoje?
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-                <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    Certo, Poderia me informar o nome completo e o CPF do titular, por gentileza.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-                <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    Vou verificar sua conexão nos nossos sistemas, só um momento.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
+Me chamo Jessica, do setor suporte da VipFiber, e estou aqui para garantir que você tenha a melhor experiência com o nosso atendimento. Como posso te ajudar hoje?
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Certo, Poderia me informar o nome completo e o CPF do titular, por gentileza.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Vou verificar sua conexão nos nossos sistemas, só um momento.
+                <span class="copied-notice">Copiado!</span>
             </div>
         </div>
-        
-        <!-- Outras categorias (mantidas iguais) -->
-        <!-- ... -->
-        
     </div>
     
-    <footer>
-        <p>© 2023 Mensagens de Suporte - Jessica | VIP Fiber</p>
-    </footer>
+	<div class="category">
+        <h2>visita tecnica</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Certo nesse caso terei que agendar uma visita técnica, poderia por gentileza me confirmar seu endereço e me enviar uma foto da etiqueta que fica atrás do roteador.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Irei marcar uma visita para retirada do aparelho, poderia por gentileza, me confirmar seu endereço e me enviar uma foto da etiqueta que fica atras do aparelho.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+			<div class="message" onclick="copyToClipboard(this)">
+                Certo verifiquei aqui no sistema que seu sinal está muito alto precisarei agendar uma visita técnica para você.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia 
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    
+	
+    <div class="category">
+        <h2>Transferências</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Olá, irei dar continuidade no seu atendimento.
+                <span class="copied-notice">Copiado!</span></div>
+				<div class="divider"></div>
+				
+				<div class="message" onclick="copyToClipboard(this)">
+                Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia 
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                INSTALAÇÃO-Em relação à instalação, mudança de endereço e mudança de titularidade,<br>
+                upgrade ou downgrade no plano,e contratos, gostaria de encaminhar o seu<br>
+                atendimento para o nosso setor comercial. A equipe do setor comercial trabalha<br>
+                das 08:00 até as 22 horas de segunda a sexta, e no sábado das 08:30 até as 12:00<br>
+                horas. Peço um momento de sua gentileza para que uma de nossas atendentes<br>
+                possa fornecer um suporte mais detalhado e personalizado para você.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                FATURAS<br>
+                A respeito sobre faturas em aberto, é com nosso setor financeiro. A equipe do<br>
+                setor financeiro trabalha das 08:30 até as 18 horas de segunda a sexta, e no<br>
+                sábado das 08:00 até as 22:00 horas. Estarei transferindo o atendimento para que<br>
+                possam dar um suporte mais detalhado para você.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Aqui no sistema consta uma pendência financeira, irei transferir ao setor responsavel.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                CANCELAMENTO<br>
+                Nosso time responsável pelo cancelamento entrará em contato com você dentro<br>
+                das próximas 48 horas para confirmar o cancelamento e fornecer as informações<br>
+                necessárias. Pedimos que aguarde esse prazo para que possamos conduzir todo o<br>
+                procedimento de forma adequada.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                HORARIO DE ALMOÇO<br>
+                Irei sair para meu horário de almoço. Estarei transferindo o atendimento para que<br>
+                outro atendente dê continuidade. Um momento por gentileza.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Certo, a troca de endereço é feita pelo setor comercial, irei transferir seu atendimento para o setor responsável.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+			<div class="divider"></div>
+			<div class="message" onclick="copyToClipboard(this)">
+               Verifiquei nos sistemas que se trata de uma questão financeira, irei transferir seu atendimento ao setor responsável.
+                <span class="copied-notice">Copiado!</span></div>
+				<div class="divider"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category">
+        <h2>Problemas de Sinal</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Poderia me informar se há alguma luz vermelha piscando no aparelho.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+               Peço que Reinicie seus equipamentos. (Retire-os da tomada, aguarde 2 minutos e
+ volte a ligá-los). Foi alterada algumas configurações e é necessário reiniciar;
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Reinicie seu computador, celular, tablet, televisão etc;
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Fiz uma alteração na configuração do seu roteador, irei reiniciá-lo,<br>
+                o sinal podera cair por alguns instantes, mas logo voltara, assim que voltar peço que teste a conexão.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category">
+        <h2>Teste de Velocidade</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Para realizar um teste de velocidade e verificar se está chegando a velocidade<br>
+                contratada você pode seguir estes passos:<br>
+                Conecte seu computador ou dispositivo diretamente ao roteador com um cabo de<br>
+                rede Ethernet. Certifique-se de que o cabo seja de boa qualidade e suporte<br>
+                velocidades Gigabite, bem como também o equipamento tenha suporte a<br>
+                velocidade.<br>
+                Feche todos os aplicativos e serviços em segundo plano que possam consumir<br>
+                largura de banda, como download, streaming de vídeo ou música, atualizações<br>
+                automáticas, etc. Isso garantirá que o teste de velocidade seja o mais preciso<br>
+                possível.
+				 Abra um navegador da web e acesse um site confiável de teste de velocidade,<br>
+                como https://www.fast.com/.<br>
+                No site de teste de velocidade, clique no botão "Iniciar teste" ou algo similar para<br>
+                iniciar o teste. O teste medirá sua velocidade de download, upload e ping.<br>
+                Aguarde até que o teste seja concluído. Os resultados serão exibidos, mostrando a<br>
+                velocidade de download e upload em Mbps (megabits por segundo) e o ping em<br>
+                milissegundos (ms)
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+			...
+
+               <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category">
+        <h2>Contratos</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Verifiquei que constam contratos pendentes de assinatura em sua linha. É fundamental que o contrato seja assinado,<br>
+                pois o sistema realiza diariamente a redução automática do sinal para clientes sem contrato vigente,<br>
+                entendendo que não há concordância com os termos da empresa. Agradeço desde já pela compreensão.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category">
+        <h2>Ponto Adicional</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                O ponto adicional tem um custo mensal de R$ 20,00 a mais na sua mensalidade(Por ponto).
+
+Para a contratação do ponto adicional, será necessário realizar um ajuste no seu contrato atual, o que resultará na renovação da fidelidade. O novo contrato estará disponível para sua análise e assinatura diretamente no aplicativo Vipfiber logo após a instalação do seu ponto adicional.
+
+Caso esteja de acordo com as condições apresentadas, daremos prosseguimento ao agendamento.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Para avaliarmos a instalação do ponto adicional, precisamos dessas informações:<br><br>
+                1️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.<br>
+                2️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)?<br>
+                3️⃣ Será necessário furar parede, teto ou laje?<br>
+                4️⃣ Distância aproximada do roteador principal até o novo ponto?<br>
+                5️⃣ Qual será a finalidade de uso do ponto adicional?<br>
+                6️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde quer o novo ponto.<br><br>
+                Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+        <div class="category">
+        <h2>cabo de rede</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+               Para avaliarmos a passagem do cabo de rede, precisamos dessas informações:
+
+⿡ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.
+⿢ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)? 
+⿣ Será necessário furar parede, teto ou laje?
+⿤ Distância aproximada do roteador principal até os aparelhos que serão conectados via cabo?
+⿥ Se possível, envie um vídeo mostrando o local atual do roteador e onde fica os aparelhos que serão conectados.
+
+Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+			...
+
+               <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    <div class="category">
+        <h2>IPTV & TVBOX</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Os serviços de IPTV/TV Box são problemáticos no Brasil devido à<br>
+                suspensão da Anatel, causando bloqueios e combate a esses serviços.<br>
+                Muitas pessoas que vendem esses serviços usam servidores em outros<br>
+                países para contornar as regras da Anatel, resultando em lentidão ou<br>
+                problemas de acesso devido à infraestrutura interna.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+    
+	    <div class="category">
+        <h2>Cancelamento/troca de endereço</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Hoje, ainda não chegamos nessa região Vou deixar seu contato aqui e assim que nossa rede chegar aí, será um enorme prazer atender você. 
+
+Podemos prosseguir com o cancelamento.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Poderia me informar se há alguém para uma possivel tranferencia de titularidade?
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+               Informamos que a conclusão do seu pedido de cancelamento está condicionada à devolução do modem à nossa central. Assim que o equipamento for recebido, o setor financeiro entrará em contato para dar continuidade ao processo de cancelamento.
+Permanecemos à disposição para quaisquer esclarecimentos.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+        </div>
+    </div>
+	
+	<div class="category">
+        <h2>Encerramento</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Estarei finalizando seu atendimento!<br>
+                Obrigado pelo seu contato. Qualquer dúvida estou a disposição!
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+                Estarei finalizando seu atendimento! Por falta de comunicação,<br>
+                Obrigado pelo seu contato. Qualquer dúvida estou a disposição!
+                <span class="copied-notice">Copiado!</span>
+            </div>
+			            <div class="message" onclick="copyToClipboard(this)">
+            Agradecemos seu contato. Teremos atendentes disponíveis até as 22:00 de hoje para auxiliá-lo (a) caso precise. Estamos comprometidos em resolver suas questões da melhor maneira possível.
+
+Tenha um excelente dia! 😀
+
+Equipe Vip.
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+        </div>
+    </div>
+	<div class="category">
+        <h2>sites</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                http://187.62.83.3/mk/
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+               https://vipfiber.sz.chat/user/agent
+                <span class="copied-notice">Copiado!</span></div>
+		   <div class="divider"></div>
+				
+            <div class="message" onclick="copyToClipboard(this)">
+               https://srv6.chatmix.com.br/app/atendimento     
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		    <div class="divider"></div>
+			<div class="message" onclick="copyToClipboard(this)">
+                  http://187.62.80.20:1002/clientes/pesquisa2
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		   <div class="message" onclick="copyToClipboard(this)">
+                 https://www.google.com/maps/d/edit?mid=1wO8WuhoY7pnnjc4Y5ECq9nVzPvi-IgW5&ll=-25.369528568272116%2C-49.106142837861476&z=18
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		    <div class="message" onclick="copyToClipboard(this)">
+                https://vipfibertelecom.smartolt.com/
+                <span class="copied-notice">Copiado!</span>
+				</div>
+				 <div class="divider"></div>
+		   <div class="message" onclick="copyToClipboard(this)">
+                   https://187.62.80.20/CTOs/frontend/
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+            </div>
+        </div>
+    </div>
+	<div class="category">
+        <h2>pós atendimento</h2>
+        <div class="message-container">
+            <div class="message" onclick="copyToClipboard(this)">
+                Olá, [Nome do Cliente]! Aqui é a Jessica do setor suporte da VipFiber. Estamos entrando em contato sobre a manutenção realizada em sua residência recentemente. Sua conexão está 100%?
+                <span class="copied-notice">Copiado!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="message" onclick="copyToClipboard(this)">
+Que ótimo! Para nosso controle, você confirma que o serviço foi finalizado por volta das [inserir horário]
+                <span class="copied-notice">Copiado!</span></div>
+				<div class="divider"></div>
+				
+            <div class="message" onclick="copyToClipboard(this)">
+              Obrigado! E de 0 a 10, qual nota você dá para o atendimento do nosso técnico?  
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		    <div class="divider"></div>
+			<div class="message" onclick="copyToClipboard(this)">
+                  (Se a nota for alta): "Ficamos felizes com a sua satisfação! 😊 Vimos aqui que você tem o plano [Plano Atual] e existe uma condição especial para você migrar para [Novo Plano] com muito mais velocidade. Teria interesse em saber mais?"
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		   <div class="message" onclick="copyToClipboard(this)">
+                  Hoje você tem o plano 750 megas por 129,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Max (Séries filmes, jogos e muito mais) gratuito por apenas R$ 129,99 (Com pagamento em dia).
+
+Você terá muito mais benefícios por apenas 10,00 reais à mais por mês.
+
+Vamos atualizar o seu plano? O que você acha?
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		    <div class="message" onclick="copyToClipboard(this)">
+                  Ficamos felizes com a sua satisfação! 😊 Vimos aqui que você tem o plano 600mb por 109,99 e existe uma condição especial para você migrar para 600mb+telemedicina por 115,99 até o dia do vencimento, assim garantindo um cuidado a mais com a sua internet e também com a sua família, teria interesse?
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		    <div class="message" onclick="copyToClipboard(this)">
+                Hoje você tem o plano 600 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
+
+Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
+
+Vamos atualizar o seu plano? O que você acha?<span class="copied-notice">Copiado!</span>
+		   </div>
+<div class="divider"></div>
+		   <div class="message" onclick="copyToClipboard(this)">
+                  Hoje você tem o plano 250 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
+
+Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
+
+Vamos atualizar o seu plano? O que você acha?
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+                <span class="copied-notice">Copiado!</span>
+            </div>
+    
 
     <script>
-        // Função corrigida para copiar texto
         function copyToClipboard(element) {
-            // Criar um elemento temporário para obter apenas o texto da mensagem
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = element.innerHTML;
-            
-            // Remover elementos que não são parte do texto da mensagem
-            const notice = tempDiv.querySelector('.copied-notice');
-            if (notice) notice.remove();
-            const icon = tempDiv.querySelector('.copy-icon');
-            if (icon) icon.remove();
-            
-            // Obter o texto limpo
-            const text = tempDiv.textContent.trim();
-            
-            // Usar a API moderna de clipboard
+            const text = element.textContent.replace('Copiado!', '').trim();
             navigator.clipboard.writeText(text).then(() => {
-                // Mostrar o aviso "Copiado!"
+                // Mostra o aviso "Copiado!"
                 const notice = element.querySelector('.copied-notice');
-                if (notice) {
-                    notice.style.display = 'block';
-                    
-                    // Adicionar classe de feedback visual
-                    element.classList.add('copied');
-                    
-                    // Esconder após 2 segundos
-                    setTimeout(() => {
-                        notice.style.display = 'none';
-                        element.classList.remove('copied');
-                    }, 2000);
-                }
-            }).catch(err => {
-                console.error('Falha ao copiar texto: ', err);
-                // Fallback para método antigo se a API moderna falhar
-                fallbackCopyTextToClipboard(text, element);
+                notice.style.display = 'inline';
+                
+                // Esconde após 2 segundos
+                setTimeout(() => {
+                    notice.style.display = 'none';
+                }, 2000);
             });
-        }
-        
-        // Método fallback para copiar texto
-        function fallbackCopyTextToClipboard(text, element) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.opacity = 0;
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    const notice = element.querySelector('.copied-notice');
-                    if (notice) {
-                        notice.style.display = 'block';
-                        element.classList.add('copied');
-                        setTimeout(() => {
-                            notice.style.display = 'none';
-                            element.classList.remove('copied');
-                        }, 2000);
-                    }
-                }
-            } catch (err) {
-                console.error('Falha ao copiar texto: ', err);
-                alert('Não foi possível copiar o texto. Tente novamente.');
-            }
-            
-            document.body.removeChild(textArea);
         }
         
         // Função de pesquisa
@@ -476,15 +493,16 @@ Me chamo Jessica, do setor suporte da VipFiber, e estou aqui para garantir que v
                 const text = message.textContent.toLowerCase();
                 if (text.includes(searchTerm)) {
                     message.style.display = 'block';
-                    // Destacar o texto pesquisado
-                    highlightText(message, searchTerm);
+                    // Destacar o container pai se encontrar correspondência
+                    message.closest('.message-container').style.display = 'block';
+                    message.closest('.category').style.display = 'block';
                 } else {
                     message.style.display = 'none';
                 }
             });
             
             // Esconder categorias vazias
-            document.querySelectorAll('.category').forEach(category => {
+            document.querySelectorAll('.category').forEach(category => 
                 const visibleMessages = category.querySelectorAll('.message[style="display: block"]');
                 if (visibleMessages.length === 0 && searchTerm !== '') {
                     category.style.display = 'none';
@@ -493,92 +511,22 @@ Me chamo Jessica, do setor suporte da VipFiber, e estou aqui para garantir que v
                 }
             });
         });
-
-        // Função para destacar texto pesquisado
-        function highlightText(element, searchTerm) {
-            const innerHTML = element.innerHTML;
-            const index = innerHTML.toLowerCase().indexOf(searchTerm);
-            
-            if (index >= 0) {
-                // Salvar o HTML original se ainda não foi salvo
-                if (!element.dataset.originalHTML) {
-                    element.dataset.originalHTML = innerHTML;
-                }
-                
-                // Destacar o termo encontrado
-                const highlightedHTML = innerHTML.replace(
-                    new RegExp(searchTerm, 'gi'),
-                    match => <span style="background-color: rgba(52, 152, 219, 0.3); border-radius: 2px;">${match}</span>
-                );
-                
-                element.innerHTML = highlightedHTML;
-                
-                // Restaurar elementos de cópia
-                const notice = document.createElement('span');
-                notice.className = 'copied-notice';
-                notice.textContent = 'Copiado!';
-                notice.style.display = 'none';
-                
-                const icon = document.createElement('i');
-                icon.className = 'fas fa-copy copy-icon';
-                
-                element.appendChild(notice);
-                element.appendChild(icon);
-            }
-        }
-        
-        // Filtros de categoria
-        document.querySelectorAll('.filter-button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remover classe active de todos os botões
-                document.querySelectorAll('.filter-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Adicionar classe active ao botão clicado
-                this.classList.add('active');
-                
-                const filter = this.getAttribute('data-filter');
-                
-                // Lógica de filtro
-                if (filter === 'all') {
-                    document.querySelectorAll('.category').forEach(category => {
-                        category.style.display = 'block';
-                    });
-                } else if (filter === 'common') {
-                    // Exibir apenas categorias mais usadas
-                    document.querySelectorAll('.category').forEach(category => {
-                        const id = category.getAttribute('data-category');
-                        if (['initial', 'technical', 'transfers'].includes(id)) {
-                            category.style.display = 'block';
-                        } else {
-                            category.style.display = 'none';
-                        }
-                    });
-                } else if (filter === 'recent') {
-                    // Exibir apenas categorias recentes
-                    document.querySelectorAll('.category').forEach(category => {
-                        const id = category.getAttribute('data-category');
-                        if (['aftercare', 'cancellation', 'additional'].includes(id)) {
-                            category.style.display = 'block';
-                        } else {
-                            category.style.display = 'none';
-                        }
-                    });
-                }
-            });
-        });
-
-        // Restaurar HTML original quando a pesquisa é limpa
-        document.getElementById('searchInput').addEventListener('search', function() {
-            if (this.value === '') {
-                document.querySelectorAll('.message').forEach(message => {
-                    if (message.dataset.originalHTML) {
-                        message.innerHTML = message.dataset.originalHTML;
-                    }
-                });
-            }
-        });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+// <div class="message" onclick="copyToClipboard(this)">
+                  
+           <span class="copied-notice">Copiado!</span>
+		   </div>
+		   <div class="divider"></div>
+		   //<br>
+		   troca de roteador-prioridade medio/baixa
+		   troca de senha/
+		   //C.Avila\\
+		  
