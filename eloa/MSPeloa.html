@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens de Suporte - Eloa Andreatta</title>
+    <title>Mensagens de Suporte - Eloa </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -19,8 +19,6 @@
             --error: #f44336;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             --transition: all 0.3s ease;
-            --category-header: #2a2a4a;
-            --category-bg: #252540;
         }
 
         * {
@@ -32,9 +30,9 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px;
+            padding: 20px;
             background: linear-gradient(135deg, #0f0f1a 0%, #121212 100%);
             color: var(--on-background);
             min-height: 100vh;
@@ -42,18 +40,18 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding: 20px;
             position: relative;
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             position: relative;
             display: inline-block;
@@ -73,22 +71,16 @@
 
         .subtitle {
             color: var(--on-surface);
-            font-size: 1.2rem;
-            margin-top: 15px;
-        }
-
-        .controls-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 30px 0;
-            gap: 20px;
+            font-size: 1.1rem;
+            margin-top: 10px;
         }
 
         .search-container {
+            margin: 30px 0;
             position: relative;
-            flex: 1;
-            max-width: 600px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #searchInput {
@@ -119,44 +111,22 @@
             font-size: 1.2rem;
         }
 
-        .filter-container {
+        .categories-container {
             display: flex;
-            gap: 10px;
-        }
-
-        .filter-button {
-            padding: 12px 20px;
-            background: var(--surface);
-            border: 2px solid #33334d;
-            border-radius: 50px;
-            color: var(--on-surface);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .filter-button:hover, .filter-button.active {
-            background: var(--primary-dark);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-            gap: 30px;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
         }
 
         .category {
+            flex: 1 1 350px;
+            max-width: 500px;
             background: var(--surface);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             border: 1px solid #33334d;
-            height: fit-content;
-            max-height: 600px;
-            overflow-y: auto;
         }
 
         .category:hover {
@@ -166,17 +136,11 @@
         }
 
         .category-header {
-            background: linear-gradient(90deg, var(--category-header) 0%, #1a1a2e 100%);
-            padding: 18px 25px;
+            background: linear-gradient(90deg, #2a2a4a 0%, #1a1a2e 100%);
+            padding: 15px 20px;
             border-bottom: 1px solid #33334d;
             position: relative;
             overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 2;
         }
 
         .category-header::before {
@@ -196,26 +160,15 @@
             position: relative;
         }
 
-        .counter {
-            display: inline-block;
-            background: var(--primary-dark);
-            color: white;
-            font-size: 0.9rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
         .message-container {
-            padding: 20px;
+            padding: 15px;
         }
 
         .message {
-            padding: 18px;
-            margin-bottom: 18px;
-            background: var(--category-bg);
-            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #252540;
+            border-radius: 10px;
             position: relative;
             cursor: pointer;
             transition: var(--transition);
@@ -241,24 +194,18 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 10;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .divider {
             height: 1px;
             background: linear-gradient(to right, transparent, #33334d, transparent);
-            margin: 18px 0;
+            margin: 15px 0;
         }
 
         .copy-icon {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
+            bottom: 10px;
+            right: 10px;
             color: var(--primary);
             opacity: 0.6;
             transition: var(--transition);
@@ -268,75 +215,37 @@
             opacity: 1;
         }
 
+        .counter {
+            display: inline-block;
+            background: var(--primary-dark);
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 25px;
+            margin-top: 40px;
+            padding: 20px;
             color: var(--on-surface);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-top: 1px solid #33334d;
         }
 
-        /* Barra de rolagem personalizada */
-        .category::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .category::-webkit-scrollbar-track {
-            background: #1a1a2e;
-        }
-
-        .category::-webkit-scrollbar-thumb {
-            background: var(--primary-dark);
-            border-radius: 4px;
-        }
-
-        .category::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* Melhorias para mensagens longas */
-        .message {
-            white-space: pre-line;
-            line-height: 1.5;
-        }
-
-        /* Responsividade para telas muito grandes */
-        @media (min-width: 1800px) {
-            .categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .controls-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .filter-container {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-
         @media (max-width: 768px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
+            .categories-container {
+                gap: 20px;
             }
             
-            body {
-                padding: 20px;
+            .category {
+                flex: 1 1 100%;
             }
             
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
         }
     </style>
@@ -344,24 +253,16 @@
 <body>
     <header>
         <h1><i class="fas fa-comments"></i> Mensagens de Suporte</h1>
-        <p class="subtitle">Eloa Andreatta - Atendimento VIP Fiber</p>
+        <p class="subtitle">Eloa  - Atendimento VIP Fiber</p>
     </header>
     
-    <div class="controls-container">
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
-        </div>
-        
-        <div class="filter-container">
-            <button class="filter-button active" data-filter="all">Todas</button>
-            <button class="filter-button" data-filter="common">Mais Usadas</button>
-            <button class="filter-button" data-filter="recent">Recentes</button>
-        </div>
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
     </div>
     
-    <div class="categories-grid">
-        <div class="category" data-category="initial">
+    <div class="categories-container">
+        <div class="category">
             <div class="category-header">
                 <h2>Atendimento Inicial <span class="counter">3</span></h2>
             </div>
@@ -386,13 +287,13 @@
             </div>
         </div>
         
-        <div class="category" data-category="technical">
+        <div class="category">
             <div class="category-header">
                 <h2>Visita Técnica <span class="counter">4</span></h2>
             </div>
             <div class="message-container">
                 <div class="message" onclick="copyToClipboard(this)">
-                    Certo nesse caso terei que agendar uma visita técnica, poderia por gentileza me confirmar seu endereço e me enviar uma foto da etiqueta que fica atrás del roteador.
+                    Certo nesse caso terei que agendar uma visita técnica, poderia por gentileza me confirmar seu endereço e me enviar uma foto da etiqueta que fica atrás do roteador.
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
@@ -417,7 +318,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="transfers">
+        <div class="category">
             <div class="category-header">
                 <h2>Transferências <span class="counter">9</span></h2>
             </div>
@@ -434,26 +335,8 @@
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
                 <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    INSTALAÇÃO-Em relação à instalação, mudança de endereço e mudança de titularidade,<br>
-                    upgrade ou downgrade no plano,e contratos, gostaria de encaminhar o seu<br>
-                    atendimento para o nosso setor comercial. A equipe do setor comercial trabalha<br>
-                    das 08:00 até as 22 horas de segunda a sexta, e no sábado das 08:30 até as 12:00<br>
-                    horas. Peço um momento de sua gentileza para que uma de nossas atendentes<br>
-                    possa fornecer um suporte mais detalhado e personalizado para você.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-                <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    FATURAS<br>
-                    A respeito sobre faturas em aberto, é com nosso setor financeiro. A equipe do<br>
-                    setor financeiro trabalha das 08:30 até as 18 horas de segunda a sexta, e no<br>
-                    sábado das 08:00 até as 22:00 horas. Estarei transferindo o atendimento para que<br>
-                    possam dar um suporte mais detalhado para você.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
+                
+               
                 <div class="divider"></div>
                 <div class="message" onclick="copyToClipboard(this)">
                     Aqui no sistema consta uma pendência financeira, irei transferir ao setor responsavel.
@@ -461,19 +344,10 @@
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
                 <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    CANCELAMENTO<br>
-                    Nosso time responsável pelo cancelamento entrará em contato com você dentro<br>
-                    das próximas 48 horas para confirmar o cancelamento e fornecer as informações<br>
-                    necessárias. Pedimos que aguarde esse prazo para que possamos conduzir todo o<br>
-                    procedimento de forma adequada.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
+               
                 <div class="divider"></div>
                 <div class="message" onclick="copyToClipboard(this)">
-                    HORARIO DE ALMOÇO<br>
-                    Irei sair para meu horário de almoço. Estarei transferindo o atendimento para que<br>
+                   Irei sair para meu horário de almoço. Estarei transferindo o atendimento para que<br>
                     outro atendente dê continuidade. Um momento por gentileza.
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
@@ -493,7 +367,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="signal">
+        <div class="category">
             <div class="category-header">
                 <h2>Problemas de Sinal <span class="counter">4</span></h2>
             </div>
@@ -526,7 +400,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="speed">
+        <div class="category">
             <div class="category-header">
                 <h2>Teste de Velocidade <span class="counter">1</span></h2>
             </div>
@@ -547,7 +421,7 @@
                     No site de teste de velocidade, clique no botão "Iniciar teste" ou algo similar para<br>
                     iniciar o teste. O teste medirá sua velocidade de download, upload e ping.<br>
                     Aguarde até que o teste seja concluído. Os resultados serão exibidos, mostrando a<br>
-                    velocidade de download и upload em Mbps (megabits por segundo) e o ping em<br>
+                    velocidade de download e upload em Mbps (megabits por segundo) e o ping em<br>
                     milissegundos (ms)
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
@@ -555,7 +429,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="contracts">
+        <div class="category">
             <div class="category-header">
                 <h2>Contratos <span class="counter">1</span></h2>
             </div>
@@ -570,7 +444,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="additional">
+        <div class="category">
             <div class="category-header">
                 <h2>Ponto Adicional <span class="counter">2</span></h2>
             </div>
@@ -586,51 +460,51 @@
                 </div>
                 <div class="divider"></div>
                 <div class="message" onclick="copyToClipboard(this)">
-                    Para avaliarmos a instalação do ponto adicional, precisamos dessas informações:
+                   Para avaliarmos a instalação do ponto adicional, precisamos dessas informações:<br>
 
-                    1️⃣ O ponto adicional será instalado dentro da mesma residência (no mesmo imóvel), ou em outro cômodo separado, como edícula ou garagem externa?
-                    2️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.
-                    3️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)? 
-                    4️⃣ Será necessário furar parede, teto ou laje?
-                    5️⃣ Distância aproximada do roteador principal até o novo ponto?
-                    6️⃣ Qual será a finalidade de uso do ponto adicional?
-                    7️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde quer o novo ponto.
+1️⃣ O ponto adicional será instalado dentro da mesma residência (no mesmo imóvel), ou em outro cômodo separado, como edícula ou garagem externa?<br>
+2️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.<br>
+3️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)?<br> 
+4️⃣ Será necessário furar parede, teto ou laje?<br>
+5️⃣ Distância aproximada do roteador principal até o novo ponto?<br>
+6️⃣ Qual será a finalidade de uso do ponto adicional?<br>
+7️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde quer o novo ponto.<br>
 
-                    Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
             </div>
         </div>
         
-        <div class="category" data-category="cable">
+        <div class="category">
             <div class="category-header">
-                <h2>Cabo de Rede <span class="counter">2</span></h2>
+                <h2>Cabo de Rede <span class="counter">1</span></h2>
             </div>
             <div class="message-container">
-                <div class="message" onclick="copyToClipboard(this)">
-                    Para avaliarmos a passagem do cabo de rede, precisamos dessas informações:
-
-                    1️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.
-                    2️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)? 
-                    3️⃣ Será necessário furar parede, teto ou laje?
-                    4️⃣ Distância aproximada do roteador principal até os aparelhos que serão conectados via cabo?
-                    5️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde fica os aparelhos que serão conectados.
-
-                    Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+			 <div class="message" onclick="copyToClipboard(this)">
+                    O cabo de rede tem um custo de R$ 5,00 o metro, o valor da metragem utilizada é cobrado no ato do serviço, estando de acordo daremos prosseguimento a sua solicitação!
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
                 <div class="divider"></div>
                 <div class="message" onclick="copyToClipboard(this)">
-                    O cabo de rede tem um custo de R$ 5,00 o metro, o valor da metragem utilizada é cobrado no ato do serviço, estando de acordo daremos prosseguimento a sua solicitação!
+                    Para avaliarmos a passagem do cabo de rede, precisamos dessas informações:<br>
+
+                    1️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.<br>
+                    2️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)? <br>
+                    3️⃣ Será necessário furar parede, teto ou laje?<br>
+                    4️⃣ Distância aproximada do roteador principal até os aparelhos que serão conectados via cabo?<br>
+                    5️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde fica os aparelhos que serão conectados.<br>
+
+                    Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
             </div>
         </div>
         
-        <div class="category" data-category="iptv">
+        <div class="category">
             <div class="category-header">
                 <h2>IPTV & TVBOX <span class="counter">1</span></h2>
             </div>
@@ -647,7 +521,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="cancellation">
+        <div class="category">
             <div class="category-header">
                 <h2>Cancelamento/Troca de Endereço <span class="counter">3</span></h2>
             </div>
@@ -675,7 +549,7 @@
             </div>
         </div>
         
-        <div class="category" data-category="closing">
+        <div class="category">
             <div class="category-header">
                 <h2>Encerramento <span class="counter">3</span></h2>
             </div>
@@ -706,13 +580,15 @@
             </div>
         </div>
         
-        <div class="category" data-category="aftercare">
+
+        
+        <div class="category">
             <div class="category-header">
                 <h2>Pós Atendimento <span class="counter">7</span></h2>
             </div>
             <div class="message-container">
                 <div class="message" onclick="copyToClipboard(this)">
-                    Olá, [Nome do Cliente]! Aqui é a Eloa do setor suporte da VipFiber. Estamos entrando em contato sobre a manutenção realizada em sua residência recentlyemente. Sua conexão está 100%?
+                    Olá, [Nome do Cliente]! Aqui é o Eloa do setor suporte da VipFiber. Estamos entrando em contato sobre a manutenção realizada em sua residência recentemente. Sua conexão está 100%?
                     <span class="copied-notice">Copiado!</span>
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
@@ -751,7 +627,117 @@
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
                 <div class="divider"></div>
+                
+                
+            </div>
+        </div>
+		
+		 <div class="category">
+            <div class="category-header">
+                <h2>TELEMEDICINA <span class="counter">3</span></h2>
+            </div>
+            <div class="message-container">
                 <div class="message" onclick="copyToClipboard(this)">
+                    O serviço de Telemedicina é prestado pela SulAmérica e contempla o Titular do plano e até 4 (quatro) dependentes, sendo seu Cônjuge, filhos e Pais, ele atende 24 horas por dia e 7 dias da semana.<BR>
+
+Neste benefício as CONSULTAS são GRATUITAS e ILIMITADAS com clínicos e especialistas, a telemedicina te atende de onde estiver, sem filas, em ate 5 minutos no máximo.<br>
+
+Além disso você tem direito a Descontos de até 70% em mais de 25 mil farmácias, como (Droga Raia, Drogasil e outras), "os medicamentos com desconto podem ser aplicados para seus dependentes também <br>
+
+E também o Sr. terá direito ao Seguro acidentes pessoais (Em casos de invalidez ou morte), lembrando que o seguro cobre apenas o titular do plano.<br>
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                  (CLIENTE),<br> 
+
+A VipFiber agora tem um combo exclusivo de internet + benefício de saúde familiar. Sua velocidade aumenta para 800 megas você ainda ganha:<br>
+
+🩺Consultas médicas online (telemedicina) com clínicos e especialistas<br>
+💊Descontos de até 70% em mais de 25 mil farmácias (Raia, Drogasil e outras)<br>
+🛡Seguro de acidentes pessoais com cobertura de R$ 5.000<br>
+Sem limite de uso e podendo usar para você e seus familiares (inclui até 4 dependentes).<br>
+
+Tudo isso por apenas R$ 119,99 (com pagamento em dia). Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                   Fulano, você sabia que a VipFiber agora tem um combo exclusivo de internet + benefício de saúde para você e seus funcionários?<br>
+
+Com o Plano Vip_800Mega + Telemedicina, você garante:<br>
+
+Para você (titular):<br>
+• 800 megas de internet<br>
+🩺Consultas médicas online 24h com clínicos e especialistas (via SulAmérica)<br>
+💊 Descontos de até 70% em medicamentos e perfumaria em mais de 25 mil farmácias<br>
+🛡 Seguro de acidentes pessoais com cobertura de até R$ 5.000<br>
+
+Para seus funcionários:<br>
+🩺 Acesso às consultas médicas online com clínicos e especialistas<br>
+• Sem fila, sem precisar sair do trabalho, o atendimento acontece em até 5 minutos via app<br>
+
+Mais saúde, mais produtividade e muito mais praticidade para o dia a dia da sua empresa!<br>
+
+Vamos ativar esse benefício agora mesmo?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+		
+		 <div class="category">
+            <div class="category-header">
+                <h2>ATUALIZAÇÕES DE PLANO <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+			 <div class="message" onclick="copyToClipboard(this)">
+                   Olá, um excelente dia para você! Tudo bem?<br>
+Aqui é a Eloa, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual ainda oferece 500 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 600 megas, sem alteração no valor da sua mensalidade.<br>
+
+A única alteração será a renovação do contrato com fidelidade de 12 meses, sem nenhum custo extra — apenas para atualizar seu plano e garantir uma experiência ainda melhor.<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                  Olá, um excelente dia para você! Tudo bem?<BR>
+Aqui é a Eloa, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual ainda oferece 600 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 800 megas, e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). Queremos garantir que sua experiência conosco seja ainda melhor.<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+				<div class="message" onclick="copyToClipboard(this)">
+                  Olá, um excelente dia para você! Tudo bem?<br>
+Aqui é a Eloa, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual oferece 800 megas. Pensando em te proporcionar uma experiência ainda melhor, podemos atualizá-lo para 800 megas + MAX, onde você terá acesso a (Séries, filmes, jogos e muito mais) gratuito por R$ 129,99 (Com pagamento em dia).<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+				 <div class="divider"></div>
+				<div class="message" onclick="copyToClipboard(this)">
+                    Hoje você tem o plano 250 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
+
+                    Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
+
+                    Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+				<div class="divider"></div>
+				<div class="message" onclick="copyToClipboard(this)">
                     Hoje você tem o plano 600 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
 
                     Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
@@ -761,99 +747,12 @@
                     <i class="fas fa-copy copy-icon"></i>
                 </div>
                 <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    Hoje você tem o plano 250 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
-
-                    Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
-
-                    Vamos atualizar o seu plano? O que você acha?
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nova categoria: Telemedicina -->
-        <div class="category" data-category="telemedicine">
-            <div class="category-header">
-                <h2>Telemedicina <span class="counter">2</span></h2>
-            </div>
-            <div class="message-container">
-                <div class="message" onclick="copyToClipboard(this)">
-                    EXPLICAÇÃO TELEMEDICINA
-
-                    O serviço de Telemedicina é prestado pela SulAmérica e contempla o Titular do plano e até 4 (quatro) dependentes, sendo seu Cônjuge, filhos e Pais, ele atende 24 horas por dia e 7 dias da semana.
-
-                    Neste benefício as CONSULTAS são GRATUITAS e ILIMITADAS com clínicos e especialistas, a telemedicina te atende de onde estiver, sem filas, em ate 5 minutos no máximo.
-
-                    Além disso você tem direito a Descontos de até 70% em mais de 25 mil farmácias, como (Droga Raia, Drogasil e outras), "os medicamentos com desconto podem ser aplicados para seus dependentes também 
-
-                    E também o Sr. terá direito ao Seguro acidentes pessoais (Em casos de invalidez ou morte), lembrando que o seguro cobre apenas o titular do plano.
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-                <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    UPGRADE TELEMEDICINA PARA CNPJ
-
-                    Fulano, você sabia que a VipFiber agora tem um combo exclusivo de internet + benefício de saúde para você e seus funcionários?
-
-                    Com o Plano Vip_800Mega + Telemedicina, você garante:
-
-                    Para você (titular):
-                    • 800 megas de internet
-                    🩺Consultas médicas online 24h com clínicos e especialistas (via SulAmérica)
-                    💊 Descontos de até 70% em medicamentos e perfumaria em mais de 25 mil farmácias
-                    🛡 Seguro de acidentes pessoais com cobertura de até R$ 5.000
-
-                    Para seus funcionários:
-                    🩺 Acesso às consultas médicas online com clínicos e especialistas
-                    • Sem fila, sem precisar sair do trabalho, o atendimento acontece em até 5 minutos via app
-
-                    Mais saúde, mais produtividade e muito mais praticidade para o dia a dia da sua empresa!
-
-                    Vamos ativar esse benefício agora mesmo?
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nova categoria: Upgrade de Plano -->
-        <div class="category" data-category="upgrade">
-            <div class="category-header">
-                <h2>Upgrade de Plano <span class="counter">2</span></h2>
-            </div>
-            <div class="message-container">
-                <div class="message" onclick="copyToClipboard(this)">
-                    Olá, um excelente dia para você! Tudo bem?
-                    Aqui é o Eloa, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.
-
-                    Durante uma verificação recente, notamos que o seu plano atual ainda oferece 500 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 600 megas, sem alteração no valor da sua mensalidade.
-
-                    A única alteração será a renovação do contrato dengan fidelidade de 12 meses, sem nenhum custo extra — apenas para atualizar seu plano e garantir uma experiência ainda melhor.
-
-                    Posso dar continuidade a essa melhoria para você?
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
-                <div class="divider"></div>
-                <div class="message" onclick="copyToClipboard(this)">
-                    Olá, um excelente dia para você! Tudo bem?
-                    Aqui é o Eloa, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.
-
-                    Durante uma verificação recente, notamos que o seu plano atual oferece 800 megas. Pensando em te proporcionar uma experiência ainda melhor, podemos atualizá-lo para 800 megas + MAX, onde você terá acesso a (Séries, filmes, jogos e muito mais) gratuito por R$ 129,99 (Com pagamento em dia).
-
-                    Posso dar continuidade a essa melhoria para você?
-                    <span class="copied-notice">Copiado!</span>
-                    <i class="fas fa-copy copy-icon"></i>
-                </div>
             </div>
         </div>
     </div>
     
     <footer>
-        <p>© 2023 Mensagens de Suporte - by Cristian Avila | VIP Fiber</p>
+        <p>© 2023 Mensagens de Suporte - Cristian Avila | VIP Fiber</p>
     </footer>
 
     <script>
@@ -880,11 +779,9 @@
                 const text = message.textContent.toLowerCase();
                 if (text.includes(searchTerm)) {
                     message.style.display = 'block';
-                    // Destacar o texto pesquisado
-                    message.innerHTML = message.innerHTML.replace(
-                        new RegExp(searchTerm, 'gi'),
-                        match => <span style="background-color: rgba(187, 134, 252, 0.3); border-radius: 2px;">${match}</span>
-                    );
+                    // Destacar o container pai se encontrar correspondência
+                    message.closest('.message-container').style.display = 'block';
+                    message.closest('.category').style.display = 'block';
                 } else {
                     message.style.display = 'none';
                 }
@@ -897,48 +794,6 @@
                     category.style.display = 'none';
                 } else {
                     category.style.display = 'block';
-                }
-            });
-        });
-
-        // Filtros de categoria
-        document.querySelectorAll('.filter-button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Remover classe active de todos os botões
-                document.querySelectorAll('.filter-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Adicionar classe active ao botão clicado
-                this.classList.add('active');
-                
-                const filter = this.getAttribute('data-filter');
-                
-                // Lógica de filtro (exemplo básico)
-                if (filter === 'all') {
-                    document.querySelectorAll('.category').forEach(category => {
-                        category.style.display = 'block';
-                    });
-                } else if (filter === 'common') {
-                    // Exibir apenas categorias mais usadas (exemplo)
-                    document.querySelectorAll('.category').forEach(category => {
-                        const id = category.getAttribute('data-category');
-                        if (['initial', 'technical', 'transfers'].includes(id)) {
-                            category.style.display = 'block';
-                        } else {
-                            category.style.display = 'none';
-                        }
-                    });
-                } else if (filter === 'recent') {
-                    // Exibir apenas categorias recentes (exemplo)
-                    document.querySelectorAll('.category').forEach(category => {
-                        const id = category.getAttribute('data-category');
-                        if (['aftercare', 'cancellation', 'additional'].includes(id)) {
-                            category.style.display = 'block';
-                        } else {
-                            category.style.display = 'none';
-                        }
-                    });
                 }
             });
         });
