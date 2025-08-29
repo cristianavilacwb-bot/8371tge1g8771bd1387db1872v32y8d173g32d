@@ -6,6 +6,21 @@
     <title>Mensagens de Suporte - Cristian Avila</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #bb86fc;
+            --primary-dark: #9a67ea;
+            --secondary: #03dac5;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --on-background: #e0e0e0;
+            --on-surface: #d0d0d0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,734 +29,768 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e4e4e7;
-            min-height: 100vh;
             line-height: 1.6;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f0f1a 0%, #121212 100%);
+            color: var(--on-background);
+            min-height: 100vh;
         }
 
-        .search-section {
-            margin-bottom: 2rem;
+        header {
             text-align: center;
-        }
-
-        .search-box {
+            margin-bottom: 30px;
+            padding: 20px;
             position: relative;
-            max-width: 500px;
-            margin: 0 auto;
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #374151;
-            border-radius: 50px;
-            background: #1f2937;
-            color: #e4e4e7;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: inline-block;
         }
 
-        .search-box input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .search-box i {
+        h1::after {
+            content: "";
             position: absolute;
-            left: 1rem;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            color: var(--on-surface);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .search-container {
+            margin: 30px 0;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            border-radius: 50px;
+            border: 2px solid #33334d;
+            background: #1a1a2e;
+            color: var(--on-background);
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: #9ca3af;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+        .categories-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
         }
 
         .category {
-            background: #1f2937;
+            flex: 1 1 350px;
+            max-width: 500px;
+            background: var(--surface);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border: 1px solid #374151;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid #33334d;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
         }
 
         .category-header {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            padding: 1.5rem;
-            color: white;
+            background: linear-gradient(90deg, #2a2a4a 0%, #1a1a2e 100%);
+            padding: 15px 20px;
+            border-bottom: 1px solid #33334d;
+            position: relative;
+            overflow: hidden;
         }
 
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .category-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
 
-        .message-count {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            padding-left: 15px;
+            position: relative;
         }
 
-        .messages {
-            padding: 1rem;
-            max-height: 500px;
-            overflow-y: auto;
+        .message-container {
+            padding: 15px;
         }
 
         .message {
-            background: #374151;
-            margin-bottom: 1rem;
-            padding: 1.2rem;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #252540;
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
             position: relative;
-            border-left: 4px solid #3b82f6;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         }
 
         .message:hover {
-            background: #4b5563;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #2d2d4a;
+            transform: translateX(5px);
         }
 
-        .message:active {
-            transform: translateY(0);
-        }
-
-        .copy-feedback {
+        .copied-notice {
             position: absolute;
             top: -10px;
             right: -10px;
-            background: #10b981;
+            background: var(--success);
             color: white;
-            padding: 0.4rem 0.8rem;
+            padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
             z-index: 10;
         }
 
-        .copy-feedback.show {
-            opacity: 1;
-            transform: scale(1);
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #33334d, transparent);
+            margin: 15px 0;
         }
 
         .copy-icon {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            color: #9ca3af;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            bottom: 10px;
+            right: 10px;
+            color: var(--primary);
+            opacity: 0.6;
+            transition: var(--transition);
         }
 
         .message:hover .copy-icon {
             opacity: 1;
         }
 
-        .messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .messages::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-
-        .messages::-webkit-scrollbar-thumb {
-            background: #4b5563;
-            border-radius: 3px;
-        }
-
-        .messages::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #10b981;
+        .counter {
+            display: inline-block;
+            background: var(--primary-dark);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1000;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
-        .toast.show {
-            transform: translateX(0);
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--on-surface);
+            font-size: 0.9rem;
+            border-top: 1px solid #33334d;
         }
 
         @media (max-width: 768px) {
-            .categories {
-                grid-template-columns: 1fr;
+            .categories-container {
+                gap: 20px;
             }
             
-            .container {
-                padding: 1rem;
+            .category {
+                flex: 1 1 100%;
             }
             
-            .header h1 {
+            h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
+    <header>
         <h1><i class="fas fa-comments"></i> Mensagens de Suporte</h1>
-        <p>Cristian Avila - Atendimento VIP Fiber</p>
+        <p class="subtitle">Cristian Avila - Atendimento VIP Fiber</p>
+    </header>
+    
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
     </div>
-
-    <div class="container">
-        <div class="search-section">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
+    
+    <div class="categories-container">
+        <div class="category">
+            <div class="category-header">
+                <h2>Atendimento Inicial <span class="counter">3</span></h2>
             </div>
-        </div>
-
-        <div class="categories">
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Atendimento Inicial</span>
-                        <span class="message-count">3</span>
-                    </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Olá, Bom Dia ! Espero encontra lo (a) bem. Poderia brevemente me contar o motivo do contato ?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
                 </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Olá, Bom Dia ! Espero encontra lo (a) bem. Poderia brevemente me contar o motivo do contato ?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Certo, Poderia me informar o nome completo e o CPF do titular, por gentileza.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Vou verificar sua conexão nos nossos sistemas, só um momento.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Certo, Poderia me informar o nome completo e o CPF do titular, por gentileza.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
                 </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Visita Técnica</span>
-                        <span class="message-count">4</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Certo nesse caso terei que agendar uma visita técnica, poderia por gentileza me confirmar seu endereço e me enviar uma foto da etiqueta que fica atrás del roteador.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Irei marcar uma visita para retirada do aparelho, poderia por gentileza, me confirmar seu endereço e me enviar uma foto da etiqueta que fica atras do aparelho.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Certo verifiquei aqui no sistema que seu sinal está muito alto precisarei agendar uma visita técnica para você.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Transferências</span>
-                        <span class="message-count">9</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Olá, irei dar continuidade no seu atendimento.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        INSTALAÇÃO - Em relação à instalação, mudança de endereço e mudança de titularidade, upgrade ou downgrade no plano, e contratos, gostaria de encaminhar o seu atendimento para o nosso setor comercial. A equipe do setor comercial trabalha das 08:00 até as 22 horas de segunda a sexta, e no sábado das 08:30 até as 12:00 horas. Peço um momento de sua gentileza para que uma de nossas atendentes possa fornecer um suporte mais detalhado e personalizado para você.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        FATURAS - A respeito sobre faturas em aberto, é com nosso setor financeiro. A equipe do setor financeiro trabalha das 08:30 até as 18 horas de segunda a sexta, e no sábado das 08:00 até as 22:00 horas. Estarei transferindo o atendimento para que possam dar um suporte mais detalhado para você.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Aqui no sistema consta uma pendência financeira, irei transferir ao setor responsável.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        CANCELAMENTO - Nosso time responsável pelo cancelamento entrará em contato com você dentro das próximas 48 horas para confirmar o cancelamento e fornecer as informações necessárias. Pedimos que aguarde esse prazo para que possamos conduzir todo o procedimento de forma adequada.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        HORÁRIO DE ALMOÇO - Irei sair para meu horário de almoço. Estarei transferindo o atendimento para que outro atendente dê continuidade. Um momento por gentileza.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Certo, a troca de endereço é feita pelo setor comercial, irei transferir seu atendimento para o setor responsável.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Verifiquei nos sistemas que se trata de uma questão financeira, irei transferir seu atendimento ao setor responsável.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Problemas de Sinal</span>
-                        <span class="message-count">4</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Poderia me informar se há alguma luz vermelha piscando no aparelho.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Peço que Reinicie seus equipamentos. (Retire-os da tomada, aguarde 2 minutos e volte a ligá-los). Foi alterada algumas configurações e é necessário reiniciar.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Reinicie seu computador, celular, tablet, televisão etc.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Fiz uma alteração na configuração do seu roteador, irei reiniciá-lo, o sinal poderá cair por alguns instantes, mas logo voltará, assim que voltar peço que teste a conexão.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Teste de Velocidade</span>
-                        <span class="message-count">1</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Para realizar um teste de velocidade e verificar se está chegando a velocidade contratada você pode seguir estes passos: Conecte seu computador ou dispositivo diretamente ao roteador com um cabo de rede Ethernet. Certifique-se de que o cabo seja de boa qualidade e suporte velocidades Gigabit, bem como também o equipamento tenha suporte a velocidade. Feche todos os aplicativos e serviços em segundo plano que possam consumir largura de banda, como download, streaming de vídeo ou música, atualizações automáticas, etc. Isso garantirá que o teste de velocidade seja o mais preciso possível. Abra um navegador da web e acesse um site confiável de teste de velocidade, como https://www.fast.com/. No site de teste de velocidade, clique no botão "Iniciar teste" ou algo similar para iniciar o teste. O teste medirá sua velocidade de download, upload e ping. Aguarde até que o teste seja concluído. Os resultados serão exibidos, mostrando a velocidade de download e upload em Mbps (megabits por segundo) e o ping em milissegundos (ms).
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Contratos</span>
-                        <span class="message-count">1</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Verifiquei que constam contratos pendentes de assinatura em sua linha. É fundamental que o contrato seja assinado, pois o sistema realiza diariamente a redução automática do sinal para clientes sem contrato vigente, entendendo que não há concordância com os termos da empresa. Agradeço desde já pela compreensão.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Ponto Adicional</span>
-                        <span class="message-count">2</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        O ponto adicional tem um custo mensal de R$ 20,00 a mais na sua mensalidade (por ponto). Para a contratação do ponto adicional, será necessário realizar um ajuste no seu contrato atual, o que resultará na renovação da fidelidade. O novo contrato estará disponível para sua análise e assinatura diretamente no aplicativo Vipfiber logo após a instalação do seu ponto adicional. Caso esteja de acordo com as condições apresentadas, daremos prosseguimento ao agendamento.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Para avaliarmos a instalação do ponto adicional, precisamos dessas informações: 1) O ponto adicional será instalado dentro da mesma residência (no mesmo imóvel), ou em outro cômodo separado, como edícula ou garagem externa? 2) Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial. 3) Existe tubulação interna ou o cabo precisará ser passado de forma aparente? 4) Será necessário furar parede, teto ou laje? 5) Distância aproximada do roteador principal até o novo ponto? 6) Qual será a finalidade de uso do ponto adicional? 7) Se possível, envie um vídeo mostrando o local atual do roteador e onde quer o novo ponto. Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Cabo de Rede</span>
-                        <span class="message-count">2</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Para avaliarmos a passagem do cabo de rede, precisamos dessas informações: 1) Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial. 2) Existe tubulação interna ou o cabo precisará ser passado de forma aparente? 3) Será necessário furar parede, teto ou laje? 4) Distância aproximada do roteador principal até os aparelhos que serão conectados via cabo? 5) Se possível, envie um vídeo mostrando o local atual do roteador e onde ficam os aparelhos que serão conectados. Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        O cabo de rede tem um custo de R$ 5,00 o metro, o valor da metragem utilizada é cobrado no ato do serviço, estando de acordo daremos prosseguimento a sua solicitação!
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>IPTV & TVBOX</span>
-                        <span class="message-count">1</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Os serviços de IPTV/TV Box são problemáticos no Brasil devido à suspensão da Anatel, causando bloqueios e combate a esses serviços. Muitas pessoas que vendem esses serviços usam servidores em outros países para contornar as regras da Anatel, resultando em lentidão ou problemas de acesso devido à infraestrutura interna.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Cancelamento/Troca de Endereço</span>
-                        <span class="message-count">3</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Hoje, ainda não chegamos nessa região. Vou deixar seu contato aqui e assim que nossa rede chegar aí, será um enorme prazer atender você. Podemos prosseguir com o cancelamento.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Poderia me informar se há alguém para uma possível transferência de titularidade?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Informamos que a conclusão do seu pedido de cancelamento está condicionada à devolução do modem à nossa central. Assim que o equipamento for recebido, o setor financeiro entrará em contato para dar continuidade ao processo de cancelamento. Permanecemos à disposição para quaisquer esclarecimentos.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Encerramento</span>
-                        <span class="message-count">3</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Estarei finalizando seu atendimento! Obrigado pelo seu contato. Qualquer dúvida estou à disposição!
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Estarei finalizando seu atendimento! Por falta de comunicação. Obrigado pelo seu contato. Qualquer dúvida estou à disposição!
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Agradecemos seu contato. Teremos atendentes disponíveis até as 22:00 de hoje para auxiliá-lo caso precise. Estamos comprometidos em resolver suas questões da melhor maneira possível. Tenha um excelente dia! Equipe Vip.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Pós Atendimento</span>
-                        <span class="message-count">8</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Olá, [Nome do Cliente]! Aqui é o Cristian Avila do setor suporte da VipFiber. Estamos entrando em contato sobre a manutenção realizada em sua residência recentemente. Sua conexão está 100%?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Que ótimo! Para nosso controle, você confirma que o serviço foi finalizado por volta das [inserir horário]?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Obrigado! E de 0 a 10, qual nota você dá para o atendimento do nosso técnico?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Ficamos felizes com a sua satisfação! Vimos aqui que você tem o plano [Plano Atual] e existe uma condição especial para você migrar para [Novo Plano] com muito mais velocidade. Teria interesse em saber mais?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Hoje você tem o plano 750 megas por 129,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Max (Séries filmes, jogos e muito mais) gratuito por apenas R$ 129,99 (Com pagamento em dia). Você terá muito mais benefícios por apenas 10,00 reais à mais por mês. Vamos atualizar o seu plano? O que você acha?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Ficamos felizes com a sua satisfação! Vimos aqui que você tem o plano 600mb por 109,99 e existe uma condição especial para você migrar para 600mb+telemedicina por 115,99 até o dia do vencimento, assim garantindo um cuidado a mais com a sua internet e também com a sua família, teria interesse?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Hoje você tem o plano 600 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. Vamos atualizar o seu plano? O que você acha?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Hoje você tem o plano 250 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. Vamos atualizar o seu plano? O que você acha?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Telemedicina</span>
-                        <span class="message-count">2</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        EXPLICAÇÃO TELEMEDICINA - O serviço de Telemedicina é prestado pela SulAmérica e contempla o Titular do plano e até 4 (quatro) dependentes, sendo seu Cônjuge, filhos e Pais, ele atende 24 horas por dia e 7 dias da semana. Neste benefício as CONSULTAS são GRATUITAS e ILIMITADAS com clínicos e especialistas, a telemedicina te atende de onde estiver, sem filas, em até 5 minutos no máximo. Além disso você tem direito a Descontos de até 70% em mais de 25 mil farmácias, como (Droga Raia, Drogasil e outras), os medicamentos com desconto podem ser aplicados para seus dependentes também. E também o Sr. terá direito ao Seguro acidentes pessoais (Em casos de invalidez ou morte), lembrando que o seguro cobre apenas o titular do plano.
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        UPGRADE TELEMEDICINA PARA CNPJ - Fulano, você sabia que a VipFiber agora tem um combo exclusivo de internet + benefício de saúde para você e seus funcionários? Com o Plano Vip_800Mega + Telemedicina, você garante: Para você (titular): 800 megas de internet, Consultas médicas online 24h com clínicos e especialistas (via SulAmérica), Descontos de até 70% em medicamentos e perfumaria em mais de 25 mil farmácias, Seguro de acidentes pessoais com cobertura de até R$ 5.000. Para seus funcionários: Acesso às consultas médicas online com clínicos e especialistas. Sem fila, sem precisar sair do trabalho, o atendimento acontece em até 5 minutos via app. Mais saúde, mais produtividade e muito mais praticidade para o dia a dia da sua empresa! Vamos ativar esse benefício agora mesmo?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <div class="category-header">
-                    <div class="category-title">
-                        <span>Upgrade de Plano</span>
-                        <span class="message-count">2</span>
-                    </div>
-                </div>
-                <div class="messages">
-                    <div class="message" onclick="copyMessage(this)">
-                        Olá, um excelente dia para você! Tudo bem? Aqui é o Cristian, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet. Durante uma verificação recente, notamos que o seu plano atual ainda oferece 500 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 600 megas, sem alteração no valor da sua mensalidade. A única alteração será a renovação do contrato com fidelidade de 12 meses, sem nenhum custo extra — apenas para atualizar seu plano e garantir uma experiência ainda melhor. Posso dar continuidade a essa melhoria para você?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
-                    <div class="message" onclick="copyMessage(this)">
-                        Olá, um excelente dia para você! Tudo bem? Aqui é o Cristian, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet. Durante uma verificação recente, notamos que o seu plano atual oferece 800 megas. Pensando em te proporcionar uma experiência ainda melhor, podemos atualizá-lo para 800 megas + MAX, onde você terá acesso a (Séries, filmes, jogos e muito mais) gratuito por R$ 129,99 (Com pagamento em dia). Posso dar continuidade a essa melhoria para você?
-                        <i class="fas fa-copy copy-icon"></i>
-                        <div class="copy-feedback">Copiado!</div>
-                    </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Vou verificar sua conexão nos nossos sistemas, só um momento.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
                 </div>
             </div>
         </div>
-    </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Visita Técnica <span class="counter">4</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Certo nesse caso terei que agendar uma visita técnica, poderia por gentileza me confirmar seu endereço e me enviar uma foto da etiqueta que fica atrás do roteador.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Irei marcar uma visita para retirada do aparelho, poderia por gentileza, me confirmar seu endereço e me enviar uma foto da etiqueta que fica atras do aparelho.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Certo verifiquei aqui no sistema que seu sinal está muito alto precisarei agendar uma visita técnica para você.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia 
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Transferências <span class="counter">9</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Olá, irei dar continuidade no seu atendimento.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Devido ao fim do meu expediente estarei transferindo seu atendimento para outro agente dar continuidade, tenha um bom dia 
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                
+               
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Aqui no sistema consta uma pendência financeira, irei transferir ao setor responsavel.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+               
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                   Irei sair para meu horário de almoço. Estarei transferindo o atendimento para que<br>
+                    outro atendente dê continuidade. Um momento por gentileza.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Certo, a troca de endereço é feita pelo setor comercial, irei transferir seu atendimento para o setor responsável.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Verifiquei nos sistemas que se trata de uma questão financeira, irei transferir seu atendimento ao setor responsável.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Problemas de Sinal <span class="counter">4</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Poderia me informar se há alguma luz vermelha piscando no aparelho.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Peço que Reinicie seus equipamentos. (Retire-os da tomada, aguarde 2 minutos e
+                    volte a ligá-los). Foi alterada algumas configurações e é necessário reiniciar;
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Reinicie seu computador, celular, tablet, televisão etc;
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Fiz uma alteração na configuração do seu roteador, irei reiniciá-lo,<br>
+                    o sinal podera cair por alguns instantes, mas logo voltara, assim que voltar peço que teste a conexão.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Teste de Velocidade <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Para realizar um teste de velocidade e verificar se está chegando a velocidade<br>
+                    contratada você pode seguir estes passos:<br>
+                    Conecte seu computador ou dispositivo diretamente ao roteador com um cabo de<br>
+                    rede Ethernet. Certifique-se de que o cabo seja de boa qualidade e suporte<br>
+                    velocidades Gigabite, bem como também o equipamento tenha suporte a<br>
+                    velocidade.<br>
+                    Feche todos os aplicativos e serviços em segundo plano que possam consumir<br>
+                    largura de banda, como download, streaming de vídeo ou música, atualizações<br>
+                    automáticas, etc. Isso garantirá que o teste de velocidade seja o mais preciso<br>
+                    possível.
+                    Abra um navegador da web e acesse um site confiável de teste de velocidade,<br>
+                    como https://www.fast.com/.<br>
+                    No site de teste de velocidade, clique no botão "Iniciar teste" ou algo similar para<br>
+                    iniciar o teste. O teste medirá sua velocidade de download, upload e ping.<br>
+                    Aguarde até que o teste seja concluído. Os resultados serão exibidos, mostrando a<br>
+                    velocidade de download e upload em Mbps (megabits por segundo) e o ping em<br>
+                    milissegundos (ms)
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Contratos <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Verifiquei que constam contratos pendentes de assinatura em sua linha. É fundamental que o contrato seja assinado,<br>
+                    pois o sistema realiza diariamente a redução automática do sinal para clientes sem contrato vigente,<br>
+                    entendendo que não há concordância com os termos da empresa. Agradeço desde já pela compreensão.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Ponto Adicional <span class="counter">2</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    O ponto adicional tem um custo mensal de R$ 20,00 a mais na sua mensalidade(Por ponto).
 
-    <div id="toast" class="toast">
-        <i class="fas fa-check-circle"></i>
-        Texto copiado com sucesso!
+                    Para a contratação do ponto adicional, será necessário realizar um ajuste no seu contrato atual, o que resultará na renovação da fidelidade. O novo contrato estará disponível para sua análise e assinatura diretamente no aplicativo Vipfiber logo após a instalação do seu ponto adicional.
+
+                    Caso esteja de acordo com as condições apresentadas, daremos prosseguimento ao agendamento.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                   Para avaliarmos a instalação do ponto adicional, precisamos dessas informações:<br>
+
+1️⃣ O ponto adicional será instalado dentro da mesma residência (no mesmo imóvel), ou em outro cômodo separado, como edícula ou garagem externa?<br>
+2️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.<br>
+3️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)?<br> 
+4️⃣ Será necessário furar parede, teto ou laje?<br>
+5️⃣ Distância aproximada do roteador principal até o novo ponto?<br>
+6️⃣ Qual será a finalidade de uso do ponto adicional?<br>
+7️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde quer o novo ponto.<br>
+
+Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Cabo de Rede <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+			 <div class="message" onclick="copyToClipboard(this)">
+                    O cabo de rede tem um custo de R$ 5,00 o metro, o valor da metragem utilizada é cobrado no ato do serviço, estando de acordo daremos prosseguimento a sua solicitação!
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Para avaliarmos a passagem do cabo de rede, precisamos dessas informações:<br>
+
+                    1️⃣ Tipo de imóvel: apartamento, casa, sobrado/duplex ou sala comercial.<br>
+                    2️⃣ Existe tubulação interna ou o cabo precisará ser passado de forma (aparente)? <br>
+                    3️⃣ Será necessário furar parede, teto ou laje?<br>
+                    4️⃣ Distância aproximada do roteador principal até os aparelhos que serão conectados via cabo?<br>
+                    5️⃣ Se possível, envie um vídeo mostrando o local atual do roteador e onde fica os aparelhos que serão conectados.<br>
+
+                    Assim, conseguimos confirmar a viabilidade técnica com mais precisão!
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>IPTV & TVBOX <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Os serviços de IPTV/TV Box são problemáticos no Brasil devido à<br>
+                    suspensão da Anatel, causando bloqueios e combate a esses serviços.<br>
+                    Muitas pessoas que vendem esses serviços usam servidores em outros<br>
+                    países para contornar as regras da Anatel, resultando em lentidão ou<br>
+                    problemas de acesso devido à infraestrutura interna.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Cancelamento/Troca de Endereço <span class="counter">3</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Hoje, ainda não chegamos nessa região Vou deixar seu contato aqui e assim que nossa rede chegar aí, será um enorme prazer atender você. 
+
+                    Podemos prosseguir com o cancelamento.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Poderia me informar se há alguém para uma possivel tranferencia de titularidade?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Informamos que a conclusão do seu pedido de cancelamento está condicionada à devolução do modem à nossa central. Assim que o equipamento for recebido, o setor financeiro entrará em contato para dar continuidade ao processo de cancelamento.
+                    Permanecemos à disposição para quaisquer esclarecimentos.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Encerramento <span class="counter">3</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Estarei finalizando seu atendimento!<br>
+                    Obrigado pelo seu contato. Qualquer dúvida estou a disposição!
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Estarei finalizando seu atendimento! Por falta de comunicação,<br>
+                    Obrigado pelo seu contato. Qualquer dúvida estou a disposição!
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Agradecemos seu contato. Teremos atendentes disponíveis até as 22:00 de hoje para auxiliá-lo (a) caso precise. Estamos comprometidos em resolver suas questões da melhor maneira possível.
+
+                    Tenha um excelente dia! 😀
+
+                    Equipe Vip.
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <div class="category">
+            <div class="category-header">
+                <h2>Pós Atendimento <span class="counter">7</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    Olá, [Nome do Cliente]! Aqui é o Cristian Avila do setor suporte da VipFiber. Estamos entrando em contato sobre a manutenção realizada em sua residência recentemente. Sua conexão está 100%?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Que ótimo! Para nosso controle, você confirma que o serviço foi finalizado por volta das [inserir horário]
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Obrigado! E de 0 a 10, qual nota você dá para o atendimento do nosso técnico?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    (Se a nota for alta): "Ficamos felizes com a sua satisfação! 😊 Vimos aqui que você tem o plano [Plano Atual] e existe uma condição especial para você migrar para [Novo Plano] com muito mais velocidade. Teria interesse em saber mais?"
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Hoje você tem o plano 750 megas por 129,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Max (Séries filmes, jogos e muito mais) gratuito por apenas R$ 129,99 (Com pagamento em dia).
+
+                    Você terá muito mais benefícios por apenas 10,00 reais à mais por mês.
+
+                    Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Ficamos felizes com a sua satisfação! 😊 Vimos aqui que você tem o plano 600mb por 109,99 e existe uma condição especial para você migrar para 600mb+telemedicina por 115,99 até o dia do vencimento, assim garantindo um cuidado a mais com a sua internet e também com a sua família, teria interesse?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Hoje você tem o plano 600 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
+
+                    Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
+
+                    Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                    Hoje você tem o plano 250 megas por 109,99, e como você é um cliente que está um bom tempo conosco, a VIP está com uma condição imperdível e eu consegui disponibilizar o plano que conta com 800 megas e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). 
+
+                    Você terá muito mais benefícios por apenas 20,00 reais a mais por mês. 
+
+                    Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+		
+		 <div class="category">
+            <div class="category-header">
+                <h2>TELEMEDICINA <span class="counter">3</span></h2>
+            </div>
+            <div class="message-container">
+                <div class="message" onclick="copyToClipboard(this)">
+                    O serviço de Telemedicina é prestado pela SulAmérica e contempla o Titular do plano e até 4 (quatro) dependentes, sendo seu Cônjuge, filhos e Pais, ele atende 24 horas por dia e 7 dias da semana.<BR>
+
+Neste benefício as CONSULTAS são GRATUITAS e ILIMITADAS com clínicos e especialistas, a telemedicina te atende de onde estiver, sem filas, em ate 5 minutos no máximo.<br>
+
+Além disso você tem direito a Descontos de até 70% em mais de 25 mil farmácias, como (Droga Raia, Drogasil e outras), "os medicamentos com desconto podem ser aplicados para seus dependentes também <br>
+
+E também o Sr. terá direito ao Seguro acidentes pessoais (Em casos de invalidez ou morte), lembrando que o seguro cobre apenas o titular do plano.<br>
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                  (CLIENTE),<br> 
+
+A VipFiber agora tem um combo exclusivo de internet + benefício de saúde familiar. Sua velocidade aumenta para 800 megas você ainda ganha:<br>
+
+🩺Consultas médicas online (telemedicina) com clínicos e especialistas<br>
+💊Descontos de até 70% em mais de 25 mil farmácias (Raia, Drogasil e outras)<br>
+🛡Seguro de acidentes pessoais com cobertura de R$ 5.000<br>
+Sem limite de uso e podendo usar para você e seus familiares (inclui até 4 dependentes).<br>
+
+Tudo isso por apenas R$ 119,99 (com pagamento em dia). Vamos atualizar o seu plano? O que você acha?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                   Fulano, você sabia que a VipFiber agora tem um combo exclusivo de internet + benefício de saúde para você e seus funcionários?<br>
+
+Com o Plano Vip_800Mega + Telemedicina, você garante:<br>
+
+Para você (titular):<br>
+• 800 megas de internet<br>
+🩺Consultas médicas online 24h com clínicos e especialistas (via SulAmérica)<br>
+💊 Descontos de até 70% em medicamentos e perfumaria em mais de 25 mil farmácias<br>
+🛡 Seguro de acidentes pessoais com cobertura de até R$ 5.000<br>
+
+Para seus funcionários:<br>
+🩺 Acesso às consultas médicas online com clínicos e especialistas<br>
+• Sem fila, sem precisar sair do trabalho, o atendimento acontece em até 5 minutos via app<br>
+
+Mais saúde, mais produtividade e muito mais praticidade para o dia a dia da sua empresa!<br>
+
+Vamos ativar esse benefício agora mesmo?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
+		
+		 <div class="category">
+            <div class="category-header">
+                <h2>ATUALIZAÇÕES DE PLANO <span class="counter">1</span></h2>
+            </div>
+            <div class="message-container">
+			 <div class="message" onclick="copyToClipboard(this)">
+                   Olá, um excelente dia para você! Tudo bem?<br>
+Aqui é a Cristian, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual ainda oferece 500 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 600 megas, sem alteração no valor da sua mensalidade.<br>
+
+A única alteração será a renovação do contrato com fidelidade de 12 meses, sem nenhum custo extra — apenas para atualizar seu plano e garantir uma experiência ainda melhor.<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+                <div class="divider"></div>
+                <div class="message" onclick="copyToClipboard(this)">
+                  Olá, um excelente dia para você! Tudo bem?<BR>
+Aqui é a Cristian, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual ainda oferece 600 megas. Pensando em te proporcionar mais velocidade e estabilidade, podemos atualizá-lo para 800 megas, e de brinde você leva o aplicativo da Deezer premium gratuito por R$ 119,99 (Com pagamento em dia). Queremos garantir que sua experiência conosco seja ainda melhor.<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+				<div class="message" onclick="copyToClipboard(this)">
+                  Olá, um excelente dia para você! Tudo bem?<br>
+Aqui é a Cristian, da equipe da Vipfiber Telecom, e estou entrando em contato para garantir que você continue aproveitando o melhor da nossa internet.<br>
+
+Durante uma verificação recente, notamos que o seu plano atual oferece 800 megas. Pensando em te proporcionar uma experiência ainda melhor, podemos atualizá-lo para 800 megas + MAX, onde você terá acesso a (Séries, filmes, jogos e muito mais) gratuito por R$ 129,99 (Com pagamento em dia).<br>
+
+Posso dar continuidade a essa melhoria para você?
+                    <span class="copied-notice">Copiado!</span>
+                    <i class="fas fa-copy copy-icon"></i>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <footer>
+        <p>© 2023 Mensagens de Suporte - Cristian Avila | VIP Fiber</p>
+    </footer>
 
     <script>
-        function copyMessage(element) {
-            // Pega o texto da mensagem, removendo ícones e elementos de feedback
-            const textNode = element.childNodes[0];
-            const text = textNode.textContent.trim();
-            
-            // Função para copiar usando diferentes métodos
-            const copyText = async (text) => {
-                try {
-                    // Método 1: API Clipboard (mais moderna)
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(text);
-                        return true;
-                    }
-                    
-                    // Método 2: execCommand (fallback)
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    textArea.style.position = 'fixed';
-                    textArea.style.left = '-999999px';
-                    textArea.style.top = '-999999px';
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    
-                    const result = document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    return result;
-                } catch (err) {
-                    console.error('Erro ao copiar:', err);
-                    return false;
-                }
-            };
-            
-            // Executar a cópia
-            copyText(text).then(success => {
-                if (success) {
-                    // Mostrar feedback visual na mensagem
-                    const feedback = element.querySelector('.copy-feedback');
-                    feedback.classList.add('show');
-                    
-                    setTimeout(() => {
-                        feedback.classList.remove('show');
-                    }, 2000);
-                    
-                    // Mostrar toast global
-                    showToast();
-                } else {
-                    alert('Erro ao copiar texto. Tente selecionar manualmente.');
-                }
+        function copyToClipboard(element) {
+            const text = element.textContent.replace('Copiado!', '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                // Mostra o aviso "Copiado!"
+                const notice = element.querySelector('.copied-notice');
+                notice.style.display = 'block';
+                
+                // Esconde após 2 segundos
+                setTimeout(() => {
+                    notice.style.display = 'none';
+                }, 2000);
             });
-        }
-        
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
         }
         
         // Função de pesquisa
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const messages = document.querySelectorAll('.message');
-            const categories = document.querySelectorAll('.category');
             
-            if (searchTerm === '') {
-                // Mostrar todas as mensagens e categorias
-                messages.forEach(msg => msg.style.display = 'block');
-                categories.forEach(cat => cat.style.display = 'block');
-                return;
-            }
-            
-            let hasResults = false;
-            
-            // Filtrar mensagens
             messages.forEach(message => {
                 const text = message.textContent.toLowerCase();
                 if (text.includes(searchTerm)) {
                     message.style.display = 'block';
-                    hasResults = true;
+                    // Destacar o container pai se encontrar correspondência
+                    message.closest('.message-container').style.display = 'block';
+                    message.closest('.category').style.display = 'block';
                 } else {
                     message.style.display = 'none';
                 }
             });
             
-            // Mostrar/ocultar categorias baseado nas mensagens visíveis
-            categories.forEach(category => {
-                const visibleMessages = category.querySelectorAll('.message[style*="block"]');
-                if (visibleMessages.length > 0) {
-                    category.style.display = 'block';
-                } else {
+            // Esconder categorias vazias
+            document.querySelectorAll('.category').forEach(category => {
+                const visibleMessages = category.querySelectorAll('.message[style="display: block"]');
+                if (visibleMessages.length === 0 && searchTerm !== '') {
                     category.style.display = 'none';
+                } else {
+                    category.style.display = 'block';
                 }
-            });
-            
-            if (!hasResults) {
-                console.log('Nenhum resultado encontrado para:', searchTerm);
-            }
-        });
-        
-        // Adicionar efeito de clique nas mensagens
-        document.querySelectorAll('.message').forEach(message => {
-            message.addEventListener('mousedown', function() {
-                this.style.transform = 'scale(0.98)';
-            });
-            
-            message.addEventListener('mouseup', function() {
-                this.style.transform = '';
-            });
-            
-            message.addEventListener('mouseleave', function() {
-                this.style.transform = '';
             });
         });
     </script>
