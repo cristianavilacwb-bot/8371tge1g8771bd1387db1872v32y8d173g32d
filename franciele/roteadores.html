@@ -1,1 +1,452 @@
-roteadores.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações de Roteadores - Guia Técnico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .router-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .router-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .router-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .router-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .router-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            background: #3498db;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .step-description {
+            color: #555;
+            line-height: 1.6;
+            margin-left: 35px;
+        }
+
+        .nokia { counter-reset: step-counter; }
+        .huawei { counter-reset: step-counter; }
+        .tplink { counter-reset: step-counter; }
+
+        .access-info {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #4caf50;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff3e0, #ffeaa7);
+            border: 1px solid #ff9800;
+            color: #e65100;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning::before {
+            content: '⚠️';
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .router-title {
+                font-size: 1.5em;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Configurações de Roteadores</h1>
+            <p>Guia técnico para verificação de configurações NOKIA, HUAWEI e TP-LINK</p>
+        </div>
+        
+        <div class="content">
+            <!-- NOKIA -->
+            <div class="router-card nokia">
+                <div class="router-title">
+                    <div class="router-icon">N</div>
+                    NOKIA
+                </div>
+                
+                <div class="access-info">
+                    <strong>Acesso:</strong> Utilize as credenciais padrão AdminGPON
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar Sinal da Fibra</div>
+                    <div class="step-description">
+                        <strong>Status → Optics Module Status</strong><br>
+                        Verificar o sinal da fibra através do <span class="highlight">Rx Optics Signal</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar DNS</div>
+                    <div class="step-description">
+                        <strong>Network → LAN</strong><br>
+                        Verificar <span class="highlight">DNS primário e secundário</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar IPV4/IPV6</div>
+                    <div class="step-description">
+                        <strong>Network → WAN</strong><br>
+                        Verificar se o <span class="highlight">IPV4/IPV6 está ativo</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar Wireless</div>
+                    <div class="step-description">
+                        <strong>Network → Wireless</strong><br>
+                        Verificar a frequência <span class="highlight">2.4GHz e 5GHz</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Configurar NTP</div>
+                    <div class="step-description">
+                        <strong>Application → NTP</strong><br>
+                        Verificar se está configurado como <span class="highlight">Brasília</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar UPNP</div>
+                    <div class="step-description">
+                        <strong>Application → UPNP</strong><br>
+                        Verificar se está <span class="highlight">ativo</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Reiniciar Dispositivo</div>
+                    <div class="step-description">
+                        <strong>Maintenance → Reboot Device → Reboot</strong>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    Sempre avisar o cliente antes de reiniciar o roteador
+                </div>
+            </div>
+
+            <!-- HUAWEI -->
+            <div class="router-card huawei">
+                <div class="router-title">
+                    <div class="router-icon">H</div>
+                    HUAWEI
+                </div>
+                
+                <div class="access-info">
+                    <strong>Acesso:</strong> Utilize as credenciais Epadmin ou telecomadmin
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar Sinal da Fibra</div>
+                    <div class="step-description">
+                        <strong>System information → Optical</strong><br>
+                        Verificar o sinal da fibra através do <span class="highlight">Rx Power</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar WAN</div>
+                    <div class="step-description">
+                        <strong>Advanced → Wan</strong><br>
+                        Verificar se está ativo <span class="highlight">IPV4/IPV6</span> e se o usuário do cliente confere com o do sistema MK
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar DNS</div>
+                    <div class="step-description">
+                        <strong>Lan → DHCP Server</strong><br>
+                        Verificar o <span class="highlight">DNS primário e secundário</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Configurar Horário</div>
+                    <div class="step-description">
+                        <strong>Application → Time settings</strong><br>
+                        Verificar se está configurado como <span class="highlight">Brasília</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar UPNP</div>
+                    <div class="step-description">
+                        <strong>Application → UPNP</strong><br>
+                        Verificar se está <span class="highlight">ativo</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar WLAN</div>
+                    <div class="step-description">
+                        <strong>WLAN → 2.4 e 5G</strong><br>
+                        Verificar a frequência de <span class="highlight">ambas as bandas</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Reiniciar Dispositivo</div>
+                    <div class="step-description">
+                        <strong>Home Page → Reset → Restart</strong>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    Sempre avisar o cliente antes de reiniciar o roteador
+                </div>
+            </div>
+
+            <!-- TP-LINK -->
+            <div class="router-card tplink">
+                <div class="router-title">
+                    <div class="router-icon">T</div>
+                    TP-LINK
+                </div>
+                
+                <div class="access-info">
+                    <strong>Acesso:</strong> Utilize a senha padrão do sistema
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Acessar Configurações</div>
+                    <div class="step-description">
+                        <strong>Advanced</strong><br>
+                        Acessar o menu de configurações avançadas
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar Sinal da Fibra</div>
+                    <div class="step-description">
+                        <strong>Status</strong><br>
+                        Verificar o sinal da fibra através do <span class="highlight">Rx Power</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Configurar GPON/Internet</div>
+                    <div class="step-description">
+                        <strong>Gpon Wan ou Internet → Modify</strong><br>
+                        Selecionar a <span class="highlight">caixinha circulada</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Ativar IPV6</div>
+                    <div class="step-description">
+                        Verificar se o <span class="highlight">IPV6 está ativo</span>, caso não esteja, <strong>ATIVAR</strong>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Configurar Wireless</div>
+                    <div class="step-description">
+                        <strong>Wireless → Wireless Settings → Wireless Radio</strong><br>
+                        Verificar se está ativo <span class="highlight">2.4GHz e 5GHz</span><br>
+                        <strong>Channel Width:</strong> Verificar a frequência do sinal
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Verificar UPNP</div>
+                    <div class="step-description">
+                        <strong>Nat Forwarding → UPNP</strong><br>
+                        Verificar se está <span class="highlight">ativo</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Configurar Horário</div>
+                    <div class="step-description">
+                        <strong>System Tools → Time settings</strong><br>
+                        Verificar se está configurado como <span class="highlight">Brasília</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">Reiniciar Dispositivo</div>
+                    <div class="step-description">
+                        <strong>Reboot Schedule → Reboot</strong>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    Sempre avisar o cliente antes de reiniciar o roteador
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
